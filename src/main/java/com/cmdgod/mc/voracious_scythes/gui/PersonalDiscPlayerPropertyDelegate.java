@@ -28,6 +28,7 @@ public class PersonalDiscPlayerPropertyDelegate implements PropertyDelegate {
         System.out.println(this.stack.getName().asString());
         String key = propertyNames.get(index);
         NbtCompound nbt = stack.getOrCreateNbt();
+        System.out.println("getting #" + index + ": " + nbt);
         if (nbt.contains(key)) {
             return nbt.getInt(key);
         }
@@ -49,7 +50,6 @@ public class PersonalDiscPlayerPropertyDelegate implements PropertyDelegate {
         String key = propertyNames.get(index);
         NbtCompound nbt = stack.getOrCreateNbt();
         nbt.putInt(key, value);
-        stack.setNbt(nbt);
         System.out.println(nbt);
         System.out.println(stack);
     }

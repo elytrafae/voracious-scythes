@@ -13,6 +13,7 @@
     "item.voracious_scythes.personal_disc_player.desc2" : "Left-click it in your hand for more.",
     "item.voracious_scythes.personal_disc_player.playlist" : "Playlist: ",
     "item.voracious_scythes.personal_disc_player.noplaylist" : "No discs in yet.",
+    "item.voracious_scythes.personal_disc_player.volume" : "Volume: %d%%",
 
     "item.voracious_scythes.hourglass_meadow_music_disc" : "Music Disc",
     "item.voracious_scythes.hourglass_meadow_music_disc.desc" : "Oliver Buckland - Hourglass Meadow",

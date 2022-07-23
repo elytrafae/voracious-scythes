@@ -3,6 +3,7 @@ package com.cmdgod.mc.voracious_scythes.gui;
 import java.util.List;
 
 import com.cmdgod.mc.voracious_scythes.VoraciousScythes;
+import com.cmdgod.mc.voracious_scythes.gui.elements.WSimpleTooltipSlider;
 import com.cmdgod.mc.voracious_scythes.inventories.PersonalDiscPlayerInventory;
 import com.cmdgod.mc.voracious_scythes.items.PersonalDiscPlayer;
 
@@ -66,8 +67,11 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
 
         WPlainPanel musicPanel = new WPlainPanel();
 
-        WSlider volumeSlider = new WSlider(0, 100, Axis.VERTICAL);
+        WSimpleTooltipSlider volumeSlider = new WSimpleTooltipSlider(0, 100, Axis.VERTICAL, "item.voracious_scythes.personal_disc_player.volume");
         volumeSlider.setValue(propertyDelegate.getByName("musicVolume"));
+        volumeSlider.setDraggingFinishedListener((intConsumer) -> {
+            customPropertyDelegate.setByName("musicVolume", volumeSlider.getValue());
+        });
         musicPanel.add(volumeSlider, 1, -1, MUSIC_PANEL_WIDTH, 83);
 
         modeSwitchButton = new WButton(Text.of(""));
