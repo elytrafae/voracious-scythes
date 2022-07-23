@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import com.cmdgod.mc.voracious_scythes.VoraciousScythes;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerNamedScreenHandlerFactory;
+import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerPropertyDelegate;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerScreen;
 import com.cmdgod.mc.voracious_scythes.inventories.PersonalDiscPlayerInventory;
 import com.google.common.collect.Multimap;
@@ -58,40 +59,15 @@ import net.minecraft.world.WorldAccess;
 
 public class PersonalDiscPlayer extends TrinketItem  {
 
-    public final static int INVENTORY_SIZE = 54;
+    public final static int INVENTORY_ROWS = 6;
+    public final static int INVENTORY_COLUMNS = 9;
+    public final static int INVENTORY_SIZE = INVENTORY_COLUMNS * INVENTORY_ROWS;
     public static final String INVENTORY_NAME = "Discs";
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(INVENTORY_SIZE, ItemStack.EMPTY);
-    private int musicVolume = 100; // Index 0
-    private int currentTrack = 0; // Index 1
 
     public PersonalDiscPlayer() {
         super(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
         Registry.register(Registry.ITEM, new Identifier(VoraciousScythes.MOD_NAMESPACE, "personal_disc_player"), this);
     }
-
-    private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
-        @Override
-        public int get(int index) {
-            if (index == 0) {
-                return musicVolume;
-            }
-            return currentTrack;
-        }
- 
-        @Override
-        public void set(int index, int value) {
-            if (index == 0) {
-                musicVolume = value;
-            } else if (index == 1) {
-                currentTrack = value;
-            }
-        }
- 
-        @Override
-        public int size() {
-            return 2;
-        }
-    };
     
     public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid) {
         var modifiers = super.getModifiers(stack, slot, entity, uuid);
@@ -146,32 +122,6 @@ public class PersonalDiscPlayer extends TrinketItem  {
         player.openHandledScreen(new PersonalDiscPlayerNamedScreenHandlerFactory(stack)); 
         return ActionResult.SUCCESS;
     }
-
-    /* THIS CODE IS A WORK IN PROGRESS
-    public ActionResult onLeftClick(PlayerEntity player, Hand hand, World world) {
-        if(player.world.isClient) return ActionResult.PASS;
-
-        player.setCurrentHand(hand);
-        ItemStack stack = player.getStackInHand(hand);
-        player.openHandledScreen(createScreenHandlerFactory(stack));
-
-        return ActionResult.SUCCESS;
-    }
-
-    private NamedScreenHandlerFactory createScreenHandlerFactory(ItemStack stack)
-    {
-        // OLD LOGIC
-//        return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) ->
-//            new BackpackScreenHandler(syncId, inventory, new BackpackInventory(stack)), stack.getName());
-
-        // COPIED LOGIC
-//        return new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) ->
-//                PersonalDiscPlayerScreen.createGeneric9x6(i, playerInventory, new PersonalDiscPlayerInventory(stack)), stack.getName());
-
-        // Latest logic
-    }
-
-    */
 
 
 }

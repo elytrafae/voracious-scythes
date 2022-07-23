@@ -17,6 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.command.CommandManager;
@@ -28,6 +29,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.minecraft.screen.PropertyDelegate;
 
 import com.cmdgod.mc.voracious_scythes.blockentities.PocketFarmEntity;
 import com.cmdgod.mc.voracious_scythes.blockentities.ScythingTableEntity;
@@ -36,6 +38,7 @@ import com.cmdgod.mc.voracious_scythes.blocks.ScythingTable;
 import com.cmdgod.mc.voracious_scythes.blocks.PocketFarms.SugarCanePocketFarm;
 import com.cmdgod.mc.voracious_scythes.blocks.PocketFarms.WoolPocketFarm;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerDescription;
+import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerPropertyDelegate;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerScreen;
 import com.cmdgod.mc.voracious_scythes.gui.ScythingTableGuiDescription;
 import com.cmdgod.mc.voracious_scythes.inventories.PersonalDiscPlayerInventory;
@@ -150,7 +153,7 @@ public class VoraciousScythes implements ModInitializer {
 
 		// Disc Player
 		PERSONAL_DISC_PLAYER = new PersonalDiscPlayer();
-		PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(new Identifier(MOD_NAMESPACE, "personal_disc_player"), (syncId, inventory) -> new PersonalDiscPlayerDescription(syncId, inventory, new PersonalDiscPlayerInventory(new ItemStack(PERSONAL_DISC_PLAYER)), ScreenHandlerContext.EMPTY));
+		PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(new Identifier(MOD_NAMESPACE, "personal_disc_player"), (syncId, inventory) -> new PersonalDiscPlayerDescription(syncId, inventory, new PersonalDiscPlayerInventory(new ItemStack(PERSONAL_DISC_PLAYER)), new PersonalDiscPlayerPropertyDelegate(new ItemStack(PERSONAL_DISC_PLAYER))));
 
 		SUGARCANE_FARM.selfRegister();
 		WOOL_FARM.selfRegister();

@@ -24,7 +24,6 @@ import net.minecraft.text.Text;
 public class PersonalDiscPlayerScreen extends CottonInventoryScreen<PersonalDiscPlayerDescription> {
     public PersonalDiscPlayerScreen(PersonalDiscPlayerDescription gui, PlayerEntity player, Text title) {
         super(gui, player, title);
-        player.sendMessage(Text.of("PersonalDiscPlayerScreen initialized! " + VoraciousScythes.returnServerOrClientString(player.getWorld())), false);
     }
 }
 

@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "com.cmdgod.mc.voracious_scythes.VoraciousScythes"
+    ],
+    "client": [
+      "com.cmdgod.mc.voracious_scythes.VoraciousScythesClient"
     ]
   },
   "mixins": [
