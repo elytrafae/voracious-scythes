@@ -72,22 +72,22 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
         volumeSlider.setDraggingFinishedListener((intConsumer) -> {
             customPropertyDelegate.setByName("musicVolume", volumeSlider.getValue());
         });
-        musicPanel.add(volumeSlider, 1, -1, MUSIC_PANEL_WIDTH, 83);
+        musicPanel.add(volumeSlider, 3, -1, MUSIC_PANEL_WIDTH, 83);
 
         modeSwitchButton = new WButton(Text.of(""));
-        musicPanel.add(modeSwitchButton, -1, 88);
+        musicPanel.add(modeSwitchButton, 2, 88);
         setModeSwitchButtonIcon(getAndValidatePlayMode());
         modeSwitchButton.setSize(18, 18);
         modeSwitchButton.setOnClick(() -> {
             toggleSwitchButton();
         });
 
-        root.add(musicPanel, ITEM_SLOT_SIZE * PersonalDiscPlayer.INVENTORY_COLUMNS + MISC_PADDING, TITLE_HEIGHT);
+        root.add(musicPanel, ITEM_SLOT_SIZE * PersonalDiscPlayer.INVENTORY_COLUMNS, TITLE_HEIGHT);
 
         WPlayerInvPanel playerInvPanel = this.createPlayerInventoryPanel();
         root.add(playerInvPanel, 0, PersonalDiscPlayer.INVENTORY_ROWS * ITEM_SLOT_SIZE + TITLE_HEIGHT + MISC_PADDING);
 
-        int rootWidth = ITEM_SLOT_SIZE * PersonalDiscPlayer.INVENTORY_COLUMNS + MUSIC_PANEL_WIDTH + MISC_PADDING + + Insets.ROOT_PANEL.left() + Insets.ROOT_PANEL.right();
+        int rootWidth = ITEM_SLOT_SIZE * 9 + Insets.ROOT_PANEL.left() + Insets.ROOT_PANEL.right();
         int rootHeight = ITEM_SLOT_SIZE * PersonalDiscPlayer.INVENTORY_ROWS + TITLE_HEIGHT + MISC_PADDING + playerInvPanel.getHeight() + Insets.ROOT_PANEL.bottom() + Insets.ROOT_PANEL.top();
 
         root.setSize(rootWidth, rootHeight);

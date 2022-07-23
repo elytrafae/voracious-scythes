@@ -60,7 +60,7 @@ import net.minecraft.world.WorldAccess;
 public class PersonalDiscPlayer extends TrinketItem  {
 
     public final static int INVENTORY_ROWS = 6;
-    public final static int INVENTORY_COLUMNS = 9;
+    public final static int INVENTORY_COLUMNS = 8;
     public final static int INVENTORY_SIZE = INVENTORY_COLUMNS * INVENTORY_ROWS;
     public static final String INVENTORY_NAME = "Discs";
 
