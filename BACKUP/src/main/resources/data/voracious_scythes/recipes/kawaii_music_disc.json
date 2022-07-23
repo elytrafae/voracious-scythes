@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#T#",
+        "PMP",
+        "#A#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:stripped_crimson_stem"
+        },
+        "T": {
+            "item": "minecraft:trapped_chest"
+        },
+        "P": {
+            "item": "minecraft:pink_wool"
+        },
+        "M": {
+            "item": "voracious_scythes:musicless_disc"
+        },
+        "A": {
+            "item": "minecraft:pink_tulip"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:kawaii_music_disc",
+        "count": 1
+    }
+}

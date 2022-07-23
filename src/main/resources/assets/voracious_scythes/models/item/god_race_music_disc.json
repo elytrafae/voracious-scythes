@@ -1,0 +1,6 @@
+{
+    "parent" : "item/generated",
+    "textures" : {
+        "layer0" : "voracious_scythes:item/god_race_music_disc"
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "type": "minecraft:stonecutting",
+    "ingredient": {
+        "item": "voracious_scythes:musicless_disc"
+    },
+    "result": "voracious_scythes:mario_cbt_music_disc",
+    "count": 1
+}

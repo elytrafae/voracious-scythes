@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#M#",
+        "IHU",
+        "#S#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:bone"
+        },
+        "M": {
+            "item": "voracious_scythes:musicless_disc"
+        },
+        "I": {
+            "item": "minecraft:iron_sword"
+        },
+        "H": {
+            "item": "minecraft:iron_chestplate"
+        },
+        "U": {
+            "item": "minecraft:iron_leggings"
+        },
+        "S": {
+            "item": "minecraft:iron_boots"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:father_gascoigne_the_hunter_music_disc",
+        "count": 1
+    }
+}

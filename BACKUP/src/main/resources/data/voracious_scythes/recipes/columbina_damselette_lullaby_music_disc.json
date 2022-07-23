@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#L#",
+        "OMO",
+        "III"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:packed_ice"
+        },
+        "L": {
+            "item": "minecraft:leather_helmet"
+        },
+        "O": {
+            "item": "minecraft:leather"
+        },
+        "M": {
+            "item": "voracious_scythes:musicless_disc"
+        },
+        "I": {
+            "item": "minecraft:ice"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:columbina_damselette_lullaby_music_disc",
+        "count": 1
+    }
+}

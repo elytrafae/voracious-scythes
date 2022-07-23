@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smithing",
+    "base": {
+        "item": "voracious_scythes:kawaii_music_disc"
+    },
+    "addition": {
+        "item": "minecraft:honeycomb"
+    },
+    "result": {
+        "item": "voracious_scythes:two_phut_hon_music_disc"
+    }
+}

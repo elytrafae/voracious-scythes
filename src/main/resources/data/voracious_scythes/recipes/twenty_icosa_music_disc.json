@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "voracious_scythes:musicless_disc"
+        },
+        {
+            "item": "minecraft:emerald"
+        },
+        {
+            "item": "minecraft:cobblestone"
+        },
+        {
+            "item": "minecraft:cobblestone"
+        }    
+    ],
+    "result": {
+        "item": "voracious_scythes:twenty_icosa_music_disc",
+        "count": 1
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "parent" : "item/generated",
+    "textures" : {
+        "layer0" : "voracious_scythes:item/father_gascoigne_the_hunter_music_disc"
+    }
+}

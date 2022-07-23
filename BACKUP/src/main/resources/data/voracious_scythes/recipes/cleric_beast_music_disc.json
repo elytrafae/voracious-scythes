@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smithing",
+    "base": {
+        "item": "voracious_scythes:father_gascoigne_the_hunter_music_disc"
+    },
+    "addition": {
+        "item": "minecraft:rotten_flesh"
+    },
+    "result": {
+        "item": "voracious_scythes:cleric_beast_music_disc"
+    }
+}

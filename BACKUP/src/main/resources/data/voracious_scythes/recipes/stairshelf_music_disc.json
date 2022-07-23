@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "BMB",
+        "MDM",
+        "BMB"
+    ],
+    "key": {
+        "M": {
+            "item": "voracious_scythes:posable_mannequin"
+        },
+        "D": {
+            "item": "voracious_scythes:musicless_disc"
+        },
+        "B": {
+            "item": "minecraft:bone"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:stairshelf_music_disc",
+        "count": 1
+    }
+}

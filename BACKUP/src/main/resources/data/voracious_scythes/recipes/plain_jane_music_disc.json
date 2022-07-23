@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smithing",
+    "base": {
+        "item": "voracious_scythes:kawaii_music_disc"
+    },
+    "addition": {
+        "item": "minecraft:redstone_block"
+    },
+    "result": {
+        "item": "voracious_scythes:plain_jane_music_disc"
+    }
+}

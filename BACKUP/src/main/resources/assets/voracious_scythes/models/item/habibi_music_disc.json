@@ -1,0 +1,7 @@
+
+{
+    "parent" : "item/generated",
+    "textures" : {
+        "layer0" : "voracious_scythes:item/habibi_music_disc"
+    }
+}

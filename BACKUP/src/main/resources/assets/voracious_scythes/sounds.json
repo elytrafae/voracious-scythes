@@ -1,0 +1,155 @@
+{
+    "hourglass_meadow" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:hourglass_meadow",
+                "stream" : true
+            }
+        ]
+    },
+    "twenty_icosa" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:twenty_icosa",
+                "stream" : true
+            }
+        ]
+    },
+    "backroom_labyrinth" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:backroom_labyrinth",
+                "stream" : true
+            }
+        ]
+    },
+    "god_race" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:god_race",
+                "stream" : true
+            }
+        ]
+    },
+    "stairshelf" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:stairshelf",
+                "stream" : true
+            }
+        ]
+    },
+    "dead_god_graveyard" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:dead_god_graveyard",
+                "stream" : true
+            }
+        ]
+    },
+    "cleric_beast" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:cleric_beast",
+                "stream" : true
+            }
+        ]
+    },
+    "father_gascoigne_the_hunter" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:father_gascoigne_the_hunter",
+                "stream" : true
+            }
+        ]
+    },
+    "aetheres" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:aetheres",
+                "stream" : true
+            }
+        ]
+    },
+    "columbina_damselette_lullaby" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:columbina_damselette_lullaby",
+                "stream" : true
+            }
+        ]
+    },
+    "geoxor_dead" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:geoxor_dead",
+                "stream" : true
+            }
+        ]
+    },
+    "habibi" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:habibi",
+                "stream" : true
+            }
+        ]
+    },
+    "kawaii" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:kawaii",
+                "stream" : true
+            }
+        ]
+    },
+    "giants" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:giants",
+                "stream" : true
+            }
+        ]
+    },
+    "plain_jane" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:plain_jane",
+                "stream" : true
+            }
+        ]
+    },
+    "two_phut_hon" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:two_phut_hon",
+                "stream" : true
+            }
+        ]
+    },
+    "mario_cbt" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:mario_cbt",
+                "stream": true
+            }
+        ]
+    },
+    "terminal_existence" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:terminal_existence",
+                "stream" : true
+            }
+        ]
+    },
+    "fiercest_warrior" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:fiercest_warrior",
+                "stream" : true,
+                "attenuation_distance": 0
+            }
+        ]
+    }
+}

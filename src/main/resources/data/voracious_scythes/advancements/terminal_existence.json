@@ -1,0 +1,30 @@
+{
+    "__comment": "Made with TheDestruc7i0n's advancements generator: https://advancements.thedestruc7i0n.ca",
+    "display": {
+        "title": {
+            "text": "The End is Nigh",
+            "color": "red",
+            "bold": true
+        },
+        "description": {
+            "text": "And it's you who shall bring it!"
+        },
+        "icon": {
+            "item": "voracious_scythes:terminal_existence_music_disc"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "lol": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "rewards": {
+        "experience": 666,
+        "function": "voracious_scythes:terminal_existence_reward"
+    },
+    "parent": "voracious_scythes:root"
+}

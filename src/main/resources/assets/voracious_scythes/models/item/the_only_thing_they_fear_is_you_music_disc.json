@@ -1,0 +1,6 @@
+{
+    "parent" : "item/generated",
+    "textures" : {
+        "layer0" : "voracious_scythes:item/the_only_thing_they_fear_is_you_music_disc"
+    }
+}

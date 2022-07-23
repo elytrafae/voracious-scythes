@@ -1,0 +1,32 @@
+{
+    "__comment": "Made with TheDestruc7i0n's advancements generator: https://advancements.thedestruc7i0n.ca",
+    "display": {
+        "title": {
+            "text": "Blood Alcoholism",
+            "color": "red",
+            "bold": false
+        },
+        "description": {
+            "text": "Kill 66 mobs to get a Blood Beer. Repeatable quest!",
+            "color": "gold"
+        },
+        "icon": {
+            "item": "minecraft:potion",
+            "nbt": "{display:{Name:'{\"text\":\"Blood Beer\",\"color\":\"red\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}',Lore:['{\"text\":\"Careful, it might get cold!\",\"color\":\"dark_gray\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}']},CustomPotionEffects:[{Id:1,Amplifier:2b,Duration:1200},{Id:5,Amplifier:3b,Duration:1200}],CustomPotionColor:13369344}"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "lol": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "rewards": {
+        "experience": 15,
+        "function": "voracious_scythes:blood_beer_quest_reward"
+    },
+    "parent": "voracious_scythes:terminal_existence"
+}

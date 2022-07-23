@@ -1,0 +1,31 @@
+{
+    "__comment": "Made with TheDestruc7i0n's advancements generator: https://advancements.thedestruc7i0n.ca",
+    "display": {
+        "title": {
+            "text": "A Fragment of Doom",
+            "color": "red",
+            "bold": true
+        },
+        "description": {
+            "text": "Kill 66 mobs in the nether to get a Doom Disc Fragment. Repeatable quest!",
+            "color": "gold"
+        },
+        "icon": {
+            "item": "voracious_scythes:doom_disc_fragment"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "nope": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "rewards": {
+        "experience": 22,
+        "function": "voracious_scythes:doom_reward"
+    },
+    "parent": "voracious_scythes:root"
+}

@@ -1,0 +1,2 @@
+
+give @s potion{display:{Name:'{"text":"Blood Beer","color":"red","bold":true,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false}',Lore:['{"text":"Careful, it might get cold!","color":"dark_gray","bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false}']},CustomPotionEffects:[{Id:1,Amplifier:2b,Duration:1800},{Id:5,Amplifier:3b,Duration:1800}],CustomPotionColor:13369344} 1

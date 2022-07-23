@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#N#",
+        "LML",
+        "CBC"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:purple_wool"
+        },
+        "N": {
+            "item": "minecraft:nether_star"
+        },
+        "L": {
+            "item": "minecraft:light_blue_wool"
+        },
+        "M": {
+            "item": "voracious_scythes:musicless_disc"
+        },
+        "C": {
+            "item": "minecraft:crying_obsidian"
+        },
+        "B": {
+            "item": "minecraft:black_wool"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:aetheres_music_disc",
+        "count": 1
+    }
+}

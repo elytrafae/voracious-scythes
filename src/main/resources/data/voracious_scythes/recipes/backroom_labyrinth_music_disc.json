@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#E#",
+        "#M#",
+        "#U#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:red_glazed_terracotta"
+        },
+        "E": {
+            "item": "minecraft:ender_eye"
+        },
+        "M": {
+            "item": "voracious_scythes:musicless_disc"
+        },
+        "U": {
+            "item": "minecraft:ender_pearl"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:backroom_labyrinth_music_disc",
+        "count": 1
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "voracious_scythes:musicless_disc"
+        },
+        {
+            "item": "minecraft:glass"
+        },
+        {
+            "item": "minecraft:glass"
+        },
+        {
+            "item": "voracious_scythes:posable_mannequin"
+        },
+        {
+            "item": "voracious_scythes:posable_mannequin"
+        },
+        {
+            "tag": "minecraft:saplings"
+        } 
+    ],
+    "result": {
+        "item": "voracious_scythes:hourglass_meadow_music_disc",
+        "count": 1
+    }
+}

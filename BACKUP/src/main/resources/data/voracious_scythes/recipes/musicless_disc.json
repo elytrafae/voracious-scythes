@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "GWG",
+        "WRW",
+        "GWG"
+    ],
+    "key": {
+        "W": {
+            "item": "minecraft:iron_ingot"
+        },
+        "G": {
+            "item": "minecraft:flint"
+        },
+        "R": {
+            "item": "minecraft:redstone"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:musicless_disc",
+        "count": 2
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "__comment": "Made with TheDestruc7i0n's advancements generator: https://advancements.thedestruc7i0n.ca",
+    "display": {
+        "title": {
+            "text": "Fiercest Warrior",
+            "color": "black",
+            "bold": true
+        },
+        "description": {
+            "text": "Kill 25 mobs with your bare hands to get a special Music Disc!",
+            "color": "white"
+        },
+        "icon": {
+            "item": "voracious_scythes:fiercest_warrior_music_disc"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "why": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "rewards": {
+        "experience": 50,
+        "function": "voracious_scythes:fiercest_warrior_reward"
+    },
+    "parent": "voracious_scythes:root"
+}

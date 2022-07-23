@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "OOO",
+        "BDB",
+        "MBM"
+    ],
+    "key": {
+        "M": {
+            "item": "voracious_scythes:posable_mannequin"
+        },
+        "D": {
+            "item": "voracious_scythes:musicless_disc"
+        },
+        "B": {
+            "item": "minecraft:bone"
+        },
+        "O": {
+            "tag": "minecraft:wooden_doors"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:dead_god_graveyard_music_disc",
+        "count": 1
+    }
+}

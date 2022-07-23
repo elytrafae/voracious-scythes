@@ -1,0 +1,38 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#IW",
+        "LMY",
+        "PBP"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:red_wool"
+        },
+        "I": {
+            "item": "minecraft:ice"
+        },
+        "W": {
+            "item": "minecraft:white_wool"
+        },
+        "L": {
+            "item": "minecraft:light_blue_wool"
+        },
+        "M": {
+            "item": "voracious_scythes:musicless_disc"
+        },
+        "Y": {
+            "item": "minecraft:yellow_wool"
+        },
+        "P": {
+            "item": "minecraft:pink_wool"
+        },
+        "B": {
+            "item": "minecraft:blue_orchid"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:giants_music_disc",
+        "count": 1
+    }
+}

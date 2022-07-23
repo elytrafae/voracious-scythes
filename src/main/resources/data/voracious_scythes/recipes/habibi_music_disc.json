@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#G#",
+        "YMY",
+        "#D#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:black_concrete_powder"
+        },
+        "G": {
+            "item": "minecraft:golden_sword"
+        },
+        "Y": {
+            "item": "minecraft:yellow_wool"
+        },
+        "M": {
+            "item": "voracious_scythes:musicless_disc"
+        },
+        "D": {
+            "item": "minecraft:dandelion"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:habibi_music_disc",
+        "count": 1
+    }
+}

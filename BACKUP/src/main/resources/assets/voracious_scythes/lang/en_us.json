@@ -1,0 +1,55 @@
+{
+    "itemGroup.voracious_scythes.music_discs" : "Music Discs (Voracious Scythes)",
+    "item.voracious_scythes.musicless_disc" : "Musicless Disc",
+
+    "item.voracious_scythes.posable_mannequin" : "Posable Mannequin",
+    "item.voracious_scythes.posable_mannequin.desc1" : "Work in progress.",
+    "item.voracious_scythes.posable_mannequin.desc2": "Currently just a crafting ingredient.",
+    "item.voracious_scythes.doom_disc_fragment" : "DOOM Disc Fragment",
+    "item.voracious_scythes.doom_disc_fragment.desc" : "The depths of hell have the finest of tunes!",
+
+    "item.voracious_scythes.hourglass_meadow_music_disc" : "Music Disc",
+    "item.voracious_scythes.hourglass_meadow_music_disc.desc" : "Oliver Buckland - Hourglass Meadow",
+    "item.voracious_scythes.twenty_icosa_music_disc": "Music Disc",
+    "item.voracious_scythes.twenty_icosa_music_disc.desc" : "Oliver Buckland - 20 - icosa",
+    "item.voracious_scythes.backroom_labyrinth_music_disc": "Music Disc",
+    "item.voracious_scythes.backroom_labyrinth_music_disc.desc" : "Oliver Buckland - backroom labyrinth",
+    "item.voracious_scythes.god_race_music_disc": "Music Disc",
+    "item.voracious_scythes.god_race_music_disc.desc" : "METAROOM - GOD RACE",
+    "item.voracious_scythes.stairshelf_music_disc": "Music Disc",
+    "item.voracious_scythes.stairshelf_music_disc.desc" : "tertiaplox - stairshelf",
+    "item.voracious_scythes.dead_god_graveyard_music_disc": "Music Disc",
+    "item.voracious_scythes.dead_god_graveyard_music_disc.desc" : "Oliver Buckland - Dead God Graveyard",
+
+    "item.voracious_scythes.cleric_beast_music_disc": "Music Disc",
+    "item.voracious_scythes.cleric_beast_music_disc.desc" : "Tsukasa Saitoh - Cleric Beast",
+    "item.voracious_scythes.father_gascoigne_the_hunter_music_disc": "Music Disc",
+    "item.voracious_scythes.father_gascoigne_the_hunter_music_disc.desc" : "Tsukasa Saitoh - Father Gascoigne The Hunter",
+    "item.voracious_scythes.aetheres_music_disc": "Music Disc",
+    "item.voracious_scythes.aetheres_music_disc.desc" : "Andrew Hulshult - Aetheres",
+    "item.voracious_scythes.columbina_damselette_lullaby_music_disc" : "Music Disc",
+    "item.voracious_scythes.columbina_damselette_lullaby_music_disc.desc" : "Yu-Peng Chen - Columbina Damselette Lullaby",
+    "item.voracious_scythes.geoxor_dead_music_disc" : "Music Disc",
+    "item.voracious_scythes.geoxor_dead_music_disc.desc" : "Geoxor & SVRGE - Dead",
+
+    "item.voracious_scythes.habibi_music_disc" : "Music Disc",
+    "item.voracious_scythes.habibi_music_disc.desc" : "SLOWED + REVERB /// Habibi by Ricky Rich ( Albanian Remix)",
+    "item.voracious_scythes.kawaii_music_disc" : "Music Disc",
+    "item.voracious_scythes.kawaii_music_disc.desc" : "TATARKA - KAWAII",
+    "item.voracious_scythes.giants_music_disc" : "Music Disc",
+    "item.voracious_scythes.giants_music_disc.desc" : "True Damage - GIANTS (ft. Becky G, Keke Palmer, SOYEON, DUCKWRTH, Thutmose) | League of Legends",
+    "item.voracious_scythes.plain_jane_music_disc" : "Music Disc",
+    "item.voracious_scythes.plain_jane_music_disc.desc" : "MMV - KEAN DYSSO - Plain Jane",
+    "item.voracious_scythes.two_phut_hon_music_disc" : "Music Disc",
+    "item.voracious_scythes.two_phut_hon_music_disc.desc" : "Pháo - 2 Phút Hơn (KAIZ Remix)",
+
+
+
+    "item.voracious_scythes.mario_cbt_music_disc" : "Music Disc?",
+    "item.voracious_scythes.mario_cbt_music_disc.desc" : "IDK. Put it in and find out.",
+
+    "item.voracious_scythes.terminal_existence_music_disc" : "Music Disc",
+    "item.voracious_scythes.terminal_existence_music_disc.desc" : "Roman Heuser - Terminal Existence",
+    "item.voracious_scythes.fiercest_warrior_music_disc" : "Music Disc",
+    "item.voracious_scythes.fiercest_warrior_music_disc.desc" : "Saori Yoshida, Yuyoyuppe - Fiercest Warrior"
+}

@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "MMM",
+        "MDM",
+        "MMM"
+    ],
+    "key": {
+        "M": {
+            "item": "voracious_scythes:posable_mannequin"
+        },
+        "D": {
+            "item": "voracious_scythes:musicless_disc"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:god_race_music_disc",
+        "count": 1
+    }
+}
