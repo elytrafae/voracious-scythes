@@ -20,7 +20,7 @@ import net.minecraft.text.Text;
 public class PersonalDiscPlayerNamedScreenHandlerFactory implements NamedScreenHandlerFactory {
 
     private ItemStack stack;
-    private PropertyDelegate propertyDelegate;
+    //private PropertyDelegate propertyDelegate;
 
     public PersonalDiscPlayerNamedScreenHandlerFactory(ItemStack stack) {
         this.stack = stack;

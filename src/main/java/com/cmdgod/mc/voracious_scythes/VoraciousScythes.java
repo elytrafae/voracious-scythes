@@ -38,6 +38,7 @@ import com.cmdgod.mc.voracious_scythes.blocks.ScythingTable;
 import com.cmdgod.mc.voracious_scythes.blocks.PocketFarms.SugarCanePocketFarm;
 import com.cmdgod.mc.voracious_scythes.blocks.PocketFarms.WoolPocketFarm;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerDescription;
+import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerNamedScreenHandlerFactory;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerPropertyDelegate;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerScreen;
 import com.cmdgod.mc.voracious_scythes.gui.ScythingTableGuiDescription;
@@ -153,7 +154,10 @@ public class VoraciousScythes implements ModInitializer {
 
 		// Disc Player
 		PERSONAL_DISC_PLAYER = new PersonalDiscPlayer();
-		PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(new Identifier(MOD_NAMESPACE, "personal_disc_player"), (syncId, inventory) -> new PersonalDiscPlayerDescription(syncId, inventory, new PersonalDiscPlayerInventory(new ItemStack(PERSONAL_DISC_PLAYER)), new PersonalDiscPlayerPropertyDelegate(new ItemStack(PERSONAL_DISC_PLAYER))));
+		//PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(new Identifier(MOD_NAMESPACE, "personal_disc_player"), (syncId, inventory) -> new PersonalDiscPlayerDescription(syncId, inventory, new PersonalDiscPlayerInventory(new ItemStack(PERSONAL_DISC_PLAYER)), new PersonalDiscPlayerPropertyDelegate(new ItemStack(PERSONAL_DISC_PLAYER))));
+
+		ScreenHandlerType<PersonalDiscPlayerDescription> type = new ScreenHandlerType<>((syncId, inventory) -> new PersonalDiscPlayerDescription(syncId, inventory, new PersonalDiscPlayerInventory(new ItemStack(PERSONAL_DISC_PLAYER)), new PersonalDiscPlayerPropertyDelegate(new ItemStack(PERSONAL_DISC_PLAYER))));
+		PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE = Registry.register(Registry.SCREEN_HANDLER, new Identifier(MOD_NAMESPACE, "personal_disc_player"), type);
 
 		SUGARCANE_FARM.selfRegister();
 		WOOL_FARM.selfRegister();
