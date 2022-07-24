@@ -198,5 +198,13 @@
                 "stream" : true
             }
         ]
+    },
+    "cultist_base" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:cultist_base",
+                "stream" : true
+            }
+        ]
     }
 }

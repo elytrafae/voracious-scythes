@@ -161,6 +161,7 @@ public class VoraciousScythes implements ModInitializer {
 		ModdedMusicDisc MEATHOOK_MUSIC_DISC = new ModdedMusicDisc("meathook", Rarity.EPIC, true);
 		ModdedMusicDisc RIP_AND_TEAR_MUSIC_DISC = new ModdedMusicDisc("rip_and_tear", Rarity.EPIC, true);
 		ModdedMusicDisc GLADIATOR_MUSIC_DISC = new ModdedMusicDisc("gladiator", Rarity.EPIC, true);
+		ModdedMusicDisc CULTIST_BASE_MUSIC_DISC = new ModdedMusicDisc("cultist_base", Rarity.EPIC, true);
 
 		// Disc Player
 		PERSONAL_DISC_PLAYER = new PersonalDiscPlayer();

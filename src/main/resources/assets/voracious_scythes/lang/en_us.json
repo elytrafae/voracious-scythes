@@ -71,5 +71,7 @@
     "item.voracious_scythes.rip_and_tear_music_disc" : "Music Disc",
     "item.voracious_scythes.rip_and_tear_music_disc.desc" : "Mick Gordon - Rip & Tear",
     "item.voracious_scythes.gladiator_music_disc" : "Music Disc",
-    "item.voracious_scythes.gladiator_music_disc.desc" : "Mick Gordon - Gladiator"
+    "item.voracious_scythes.gladiator_music_disc.desc" : "Mick Gordon - Gladiator",
+    "item.voracious_scythes.cultist_base_music_disc" : "Music Disc",
+    "item.voracious_scythes.cultist_base_music_disc.desc" : "Mick Gordon - Cultist Base"
 }
