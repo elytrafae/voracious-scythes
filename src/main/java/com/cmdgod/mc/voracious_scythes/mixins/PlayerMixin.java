@@ -1,6 +1,8 @@
 package com.cmdgod.mc.voracious_scythes.mixins;
 
 import com.cmdgod.mc.voracious_scythes.VoraciousScythes;
+import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerPropertyDelegate;
+import com.cmdgod.mc.voracious_scythes.inventories.PersonalDiscPlayerInventory;
 import com.cmdgod.mc.voracious_scythes.items.PersonalDiscPlayer;
 import com.cmdgod.mc.voracious_scythes.items.PosableMannequin;
 import com.cmdgod.mc.voracious_scythes.items.ScytheBase;
@@ -16,6 +18,7 @@ import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,6 +48,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import net.minecraft.world.World;
 
 @Mixin(PlayerEntity.class)
@@ -159,50 +163,49 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
     }
 
     private void clientTick(PlayerMixin playerExt, PlayerEntity player) {
-        //personalJukeboxTick(playerExt, player);
+        personalJukeboxTick(playerExt, player);
     }
 
     PositionedSoundInstance personalSoundInstance;
-    int personalSoundIndex = -1;
+    ItemStack personalSoundLastStack = ItemStack.EMPTY;
     private void personalJukeboxTick(PlayerMixin playerExt, PlayerEntity player) {
         Optional<TrinketComponent> trinkets = TrinketsApi.getTrinketComponent(player);
-        if (trinkets.isPresent() && trinkets.get().isEquipped(VoraciousScythes.PERSONAL_DISC_PLAYER)) {
-            //Identifier id = new Identifier(VoraciousScythes.MOD_NAMESPACE, "mario_cbt"); // For testing purposes for now.
-            if (canPlayPersonalJukebox(player)) {
-                ItemStack stack = getNextMusicDiscInPlayerInventory(player);
-                if (stack != null) {
-                    MusicDiscItem disc = (MusicDiscItem)stack.getItem();
-                    Identifier id = disc.getSound().getId();
-                    personalJukeboxPlaySong(id);
-                } 
+        List<Pair<SlotReference, ItemStack>> items = trinkets.get().getAllEquipped();
+        boolean hadAMatch = false;
+        for (int i=0; i < items.size(); i++) {
+            ItemStack stack = items.get(i).getRight();
+            if ((!stack.isEmpty()) && stack.getItem() instanceof PersonalDiscPlayer) {
+                PersonalDiscPlayerInventory inventory = new PersonalDiscPlayerInventory(stack);
+                if (inventory.hasAtLeastOneMusicDisc()) {
+                    personalJukeboxTick2(playerExt, player, stack, inventory);
+                    hadAMatch = true;
+                }
             }
-        } else {
+        }
+        if (!hadAMatch) {
             if (personalSoundInstance != null) {
                 MinecraftClient.getInstance().getSoundManager().stop(personalSoundInstance);
             }
         }
     }
 
-    private ItemStack getNextMusicDiscInPlayerInventory(PlayerEntity player) {
-        int i = personalSoundIndex + 1;
-        Inventory inventory = player.getInventory();
-        int length = inventory.size();
-        while (i != personalSoundIndex) {
-            if (i >= length) {
-                i = 0;
+    private void personalJukeboxTick2(PlayerMixin playerExt, PlayerEntity player, ItemStack stack, PersonalDiscPlayerInventory inventory) {
+        if (canPlayPersonalJukebox(player)) {
+            PersonalDiscPlayerPropertyDelegate propDelegate = new PersonalDiscPlayerPropertyDelegate(stack);
+            int playMode = propDelegate.getByName("playMode");
+
+            ItemStack discStack = personalSoundLastStack;
+            if (personalSoundLastStack.isEmpty() || playMode == 0) {
+                discStack = inventory.getNextMusicDiscAfter(personalSoundLastStack);
+            } else if (playMode == 2) {
+                discStack = inventory.getRandomMusicDisc();
             }
-            ItemStack stack = inventory.getStack(i);
-            if (stack.getItem() instanceof MusicDiscItem) {
-                personalSoundIndex = i;
-                return stack;
-            }
-            i++;
+            personalSoundLastStack = discStack;
+
+            MusicDiscItem disc = (MusicDiscItem)discStack.getItem();
+            Identifier id = disc.getSound().getId();
+            personalJukeboxPlaySong(id);
         }
-        ItemStack fallbackStack = inventory.getStack(personalSoundIndex);
-        if (fallbackStack.getItem() instanceof MusicDiscItem) {
-            return fallbackStack;
-        }
-        return null;
     }
 
     private boolean canPlayPersonalJukebox(PlayerEntity player) {

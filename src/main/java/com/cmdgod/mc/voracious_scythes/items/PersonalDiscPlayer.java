@@ -20,6 +20,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.InventoryProvider;
 import net.minecraft.block.entity.StructureBlockBlockEntity.Action;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.enchantment.Enchantment.Rarity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -79,6 +80,8 @@ public class PersonalDiscPlayer extends TrinketItem  {
         return modifiers;
     }
 
+    PositionedSoundInstance personalSoundInstance;
+
     @Override
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
         super.tick(stack, slot, entity);
@@ -87,8 +90,7 @@ public class PersonalDiscPlayer extends TrinketItem  {
             return;
         }
         PlayerEntity player = (PlayerEntity)entity;
-        SlotType type = slot.inventory().getSlotType();
-        player.sendMessage(Text.of(type.getGroup() + " " + type.getName()), true);
+        
         player.sendMessage(Text.of("MUSIC SHOULD BE PLAYING!"), true);
     }
 

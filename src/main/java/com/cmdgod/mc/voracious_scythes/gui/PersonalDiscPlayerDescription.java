@@ -1,5 +1,6 @@
 package com.cmdgod.mc.voracious_scythes.gui;
 
+import java.util.IdentityHashMap;
 import java.util.List;
 
 import com.cmdgod.mc.voracious_scythes.VoraciousScythes;
@@ -39,6 +40,7 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
     public static final int MUSIC_PANEL_WIDTH = 15;
     public static final int MISC_PADDING = 4;
     
+    public static final Identifier READY_MESSAGE_ID = new Identifier(VoraciousScythes.MOD_NAMESPACE, "network_pdp_ready");
     public static final Identifier GET_VALUE_MESSAGE_ID = new Identifier(VoraciousScythes.MOD_NAMESPACE, "network_pdp_get");
     public static final Identifier GET_VALUE_ANSWER_MESSAGE_ID = new Identifier(VoraciousScythes.MOD_NAMESPACE, "network_pdp_get_answer");
     public static final Identifier SET_VALUE_MESSAGE_ID = new Identifier(VoraciousScythes.MOD_NAMESPACE, "network_pdp_set");
@@ -119,12 +121,16 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
         int rootWidth = ITEM_SLOT_SIZE * 9 + Insets.ROOT_PANEL.left() + Insets.ROOT_PANEL.right();
         int rootHeight = ITEM_SLOT_SIZE * PersonalDiscPlayer.INVENTORY_ROWS + TITLE_HEIGHT + MISC_PADDING + playerInvPanel.getHeight() + Insets.ROOT_PANEL.bottom() + Insets.ROOT_PANEL.top();
 
-        serverSendValueRefreshOverNetwork(0, propertyDelegate.get(0));
-        serverSendValueRefreshOverNetwork(1, propertyDelegate.get(1));
-        serverSendValueRefreshOverNetwork(2, propertyDelegate.get(2));
+        ScreenNetworking.of(this, NetworkSide.SERVER).receive(READY_MESSAGE_ID, buf -> {
+            serverSendValueRefreshOverNetwork(0, propertyDelegate.get(0));
+            serverSendValueRefreshOverNetwork(1, propertyDelegate.get(1));
+            serverSendValueRefreshOverNetwork(2, propertyDelegate.get(2));
+        });
 
         root.setSize(rootWidth, rootHeight);
         root.validate(this);
+
+        ScreenNetworking.of(this, NetworkSide.CLIENT).send(READY_MESSAGE_ID, buf -> {});
     }
 
     private void setValueOnServer(int index, int value) {
