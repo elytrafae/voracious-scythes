@@ -20,10 +20,12 @@ import net.minecraft.text.Text;
 public class PersonalDiscPlayerNamedScreenHandlerFactory implements NamedScreenHandlerFactory {
 
     private ItemStack stack;
+    private PlayerEntity player; // Player is for debug purposes
     //private PropertyDelegate propertyDelegate;
 
-    public PersonalDiscPlayerNamedScreenHandlerFactory(ItemStack stack) {
+    public PersonalDiscPlayerNamedScreenHandlerFactory(ItemStack stack, PlayerEntity player) {
         this.stack = stack;
+        this.player = player;
     }
 
     @Override

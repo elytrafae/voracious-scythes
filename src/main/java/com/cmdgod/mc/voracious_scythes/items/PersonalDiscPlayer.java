@@ -13,6 +13,7 @@ import com.google.common.collect.Multimap;
 
 import dev.emi.trinkets.api.SlotAttributes;
 import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.SlotType;
 import dev.emi.trinkets.api.TrinketItem;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -78,6 +79,19 @@ public class PersonalDiscPlayer extends TrinketItem  {
         return modifiers;
     }
 
+    @Override
+    public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        super.tick(stack, slot, entity);
+        entity.sendSystemMessage(Text.of("TICK!"), entity.getUuid());
+        if (!(entity instanceof PlayerEntity)) {
+            return;
+        }
+        PlayerEntity player = (PlayerEntity)entity;
+        SlotType type = slot.inventory().getSlotType();
+        player.sendMessage(Text.of(type.getGroup() + " " + type.getName()), true);
+        player.sendMessage(Text.of("MUSIC SHOULD BE PLAYING!"), true);
+    }
+
     public ArrayList<ItemStack> getCountainedItems(ItemStack itemStack) {
         NbtCompound nbt = itemStack.getOrCreateNbt();
         if (!nbt.contains(INVENTORY_NAME)) {
@@ -119,7 +133,7 @@ public class PersonalDiscPlayer extends TrinketItem  {
 
     public ActionResult onLeftClick(PlayerEntity player, Hand hand, World world) {
         ItemStack stack = player.getStackInHand(hand);
-        player.openHandledScreen(new PersonalDiscPlayerNamedScreenHandlerFactory(stack)); 
+        player.openHandledScreen(new PersonalDiscPlayerNamedScreenHandlerFactory(stack, player)); 
         return ActionResult.SUCCESS;
     }
 

@@ -12,6 +12,7 @@ import com.cmdgod.mc.voracious_scythes.scytheabilities.AbilityCooldownManager.Ab
 import com.cmdgod.mc.voracious_scythes.scytheabilities.AbilityDurationManager.DurationSaveDTO;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.AbilityDurationManager.DurationSaveData;
 
+import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 

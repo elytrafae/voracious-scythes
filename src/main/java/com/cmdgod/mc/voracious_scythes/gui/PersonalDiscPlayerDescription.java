@@ -23,6 +23,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.Text;
@@ -36,8 +37,6 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
     public static final int MUSIC_PANEL_WIDTH = 15;
     public static final int MISC_PADDING = 4;
 
-    private PersonalDiscPlayerPropertyDelegate customPropertyDelegate;
-
     private static Identifier repeatId = new Identifier(VoraciousScythes.MOD_NAMESPACE, "textures/ui/playmode_repeat.png");
     private static Identifier repeatOneId = new Identifier(VoraciousScythes.MOD_NAMESPACE, "textures/ui/playmode_repeat_one.png");
     private static Identifier randomId = new Identifier(VoraciousScythes.MOD_NAMESPACE, "textures/ui/playmode_random.png");
@@ -46,10 +45,9 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
 
     private static WButton modeSwitchButton;
 
-    public PersonalDiscPlayerDescription(int syncId, PlayerInventory playerInventory, PersonalDiscPlayerInventory itemInventory, PersonalDiscPlayerPropertyDelegate propertyDelegate) {
+    public PersonalDiscPlayerDescription(int syncId, PlayerInventory playerInventory, PersonalDiscPlayerInventory itemInventory, PropertyDelegate propertyDelegate) {
         super(VoraciousScythes.PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE, syncId, playerInventory, itemInventory, propertyDelegate);
         this.itemInventory = itemInventory;
-        this.customPropertyDelegate = propertyDelegate;
 
         WPlainPanel root = new WPlainPanel();
         setRootPanel(root);
@@ -68,11 +66,11 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
         WPlainPanel musicPanel = new WPlainPanel();
 
         WSimpleTooltipSlider volumeSlider = new WSimpleTooltipSlider(0, 100, Axis.VERTICAL, "item.voracious_scythes.personal_disc_player.volume");
-        volumeSlider.setValue(propertyDelegate.getByName("musicVolume"));
+        volumeSlider.setValue(propertyDelegate.get(0));
         volumeSlider.setDraggingFinishedListener((intConsumer) -> {
-            customPropertyDelegate.setByName("musicVolume", volumeSlider.getValue());
+            propertyDelegate.set(0, volumeSlider.getValue());
         });
-        musicPanel.add(volumeSlider, 3, -1, MUSIC_PANEL_WIDTH, 83);
+        musicPanel.add(volumeSlider, 4, -1, MUSIC_PANEL_WIDTH, 83);
 
         modeSwitchButton = new WButton(Text.of(""));
         musicPanel.add(modeSwitchButton, 2, 88);
@@ -95,14 +93,14 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
     }
 
     private int getAndValidatePlayMode() {
-        int playMode = customPropertyDelegate.getByName("playMode");
+        int playMode = propertyDelegate.get(2);
         if (playMode < 0 || playMode >= PLAY_MODE_ICONS.size()) {
             ItemStack warnStack = new ItemStack(Items.PAPER);
             warnStack.setCount(1);
             warnStack.setCustomName(Text.of("INVALID PLAY MODE DETECTED!" + playMode));
             playerInventory.insertStack(warnStack);
             playMode = 0;
-            customPropertyDelegate.setByName("playMode", 0);
+            propertyDelegate.set(2, 0);
         }
         return playMode;
     }
@@ -118,6 +116,6 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
             playMode = 0;
         }
         setModeSwitchButtonIcon(playMode);
-        customPropertyDelegate.setByName("playMode", playMode);
+        propertyDelegate.set(2, playMode);
     }
 }

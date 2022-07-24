@@ -17,6 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
@@ -156,7 +157,7 @@ public class VoraciousScythes implements ModInitializer {
 		PERSONAL_DISC_PLAYER = new PersonalDiscPlayer();
 		//PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(new Identifier(MOD_NAMESPACE, "personal_disc_player"), (syncId, inventory) -> new PersonalDiscPlayerDescription(syncId, inventory, new PersonalDiscPlayerInventory(new ItemStack(PERSONAL_DISC_PLAYER)), new PersonalDiscPlayerPropertyDelegate(new ItemStack(PERSONAL_DISC_PLAYER))));
 
-		ScreenHandlerType<PersonalDiscPlayerDescription> type = new ScreenHandlerType<>((syncId, inventory) -> new PersonalDiscPlayerDescription(syncId, inventory, new PersonalDiscPlayerInventory(new ItemStack(PERSONAL_DISC_PLAYER)), new PersonalDiscPlayerPropertyDelegate(new ItemStack(PERSONAL_DISC_PLAYER))));
+		ScreenHandlerType<PersonalDiscPlayerDescription> type = new ScreenHandlerType<>((syncId, inventory) -> new PersonalDiscPlayerDescription(syncId, inventory, new PersonalDiscPlayerInventory(new ItemStack(PERSONAL_DISC_PLAYER)), new ArrayPropertyDelegate(PersonalDiscPlayerPropertyDelegate.SIZE)));
 		PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE = Registry.register(Registry.SCREEN_HANDLER, new Identifier(MOD_NAMESPACE, "personal_disc_player"), type);
 
 		SUGARCANE_FARM.selfRegister();
