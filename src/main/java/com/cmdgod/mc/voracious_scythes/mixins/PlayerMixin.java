@@ -26,6 +26,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.entity.EnderChestBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -44,6 +46,7 @@ import net.minecraft.item.MusicDiscItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
@@ -167,9 +170,11 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
     }
 
     PositionedSoundInstance personalSoundInstance;
-    ItemStack personalSoundLastStack = ItemStack.EMPTY;
     private void personalJukeboxTick(PlayerMixin playerExt, PlayerEntity player) {
         Optional<TrinketComponent> trinkets = TrinketsApi.getTrinketComponent(player);
+        if (trinkets.isEmpty()) {
+            return;
+        }
         List<Pair<SlotReference, ItemStack>> items = trinkets.get().getAllEquipped();
         boolean hadAMatch = false;
         for (int i=0; i < items.size(); i++) {
@@ -177,7 +182,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
             if ((!stack.isEmpty()) && stack.getItem() instanceof PersonalDiscPlayer) {
                 PersonalDiscPlayerInventory inventory = new PersonalDiscPlayerInventory(stack);
                 if (inventory.hasAtLeastOneMusicDisc()) {
-                    personalJukeboxTick2(playerExt, player, stack, inventory);
+                    personalJukeboxTick2(playerExt, player, stack, inventory, i);
                     hadAMatch = true;
                 }
             }
@@ -189,22 +194,34 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
         }
     }
 
-    private void personalJukeboxTick2(PlayerMixin playerExt, PlayerEntity player, ItemStack stack, PersonalDiscPlayerInventory inventory) {
+    private void personalJukeboxTick2(PlayerMixin playerExt, PlayerEntity player, ItemStack stack, PersonalDiscPlayerInventory inventory, int slotIndex) {
         if (canPlayPersonalJukebox(player)) {
             PersonalDiscPlayerPropertyDelegate propDelegate = new PersonalDiscPlayerPropertyDelegate(stack);
             int playMode = propDelegate.getByName("playMode");
+            int volume = propDelegate.getByName("musicVolume");
 
-            ItemStack discStack = personalSoundLastStack;
-            if (personalSoundLastStack.isEmpty() || playMode == 0) {
-                discStack = inventory.getNextMusicDiscAfter(personalSoundLastStack);
-            } else if (playMode == 2) {
-                discStack = inventory.getRandomMusicDisc();
+            if (playMode == 2) {
+                MusicDiscItem disc = (MusicDiscItem)inventory.getRandomMusicDisc().getItem();
+                personalJukeboxPlaySong(disc, volume);
+                return;
             }
-            personalSoundLastStack = discStack;
 
-            MusicDiscItem disc = (MusicDiscItem)discStack.getItem();
-            Identifier id = disc.getSound().getId();
-            personalJukeboxPlaySong(id);
+            int discSlot = propDelegate.getByName("currentTrack");
+            if (!inventory.hasDiscOnSlot(discSlot)) {
+                discSlot = inventory.getFirstValidSlot();
+            }
+            MusicDiscItem disc = (MusicDiscItem)inventory.getStack(discSlot).getItem();
+            personalJukeboxPlaySong(disc, volume);
+
+            if (playMode == 0) {
+                discSlot = inventory.getNextMusicDiscSlotAfter(discSlot);
+            }
+
+            propDelegate.setByName("currentTrack", discSlot);
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.setInt(0, slotIndex);
+            buf.setInt(1, discSlot);
+            ClientPlayNetworking.send(VoraciousScythes.UPDATE_TRACK_NUMBER_ID, buf);
         }
     }
 
@@ -215,10 +232,11 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
         return !MinecraftClient.getInstance().getSoundManager().isPlaying(personalSoundInstance);
     }
 
-    private void personalJukeboxPlaySong(Identifier id) {
+    private void personalJukeboxPlaySong(MusicDiscItem disc, int volume) {
+        Identifier id = disc.getSound().getId();
         SoundManager soundManager = MinecraftClient.getInstance().getSoundManager();
         soundManager.stopSounds(null, SoundCategory.MUSIC);
-        personalSoundInstance = new PositionedSoundInstance(id, SoundCategory.PLAYERS, 1, 1, false, 0, SoundInstance.AttenuationType.NONE, 0, 0, 0, true);
+        personalSoundInstance = new PositionedSoundInstance(id, SoundCategory.PLAYERS, ((float)volume)/100, 1, false, 0, SoundInstance.AttenuationType.NONE, 0, 0, 0, true);
         MinecraftClient.getInstance().getSoundManager().play(personalSoundInstance);
     }
 

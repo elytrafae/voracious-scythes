@@ -6,12 +6,14 @@ import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.BlazeEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -59,6 +61,11 @@ import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.TornadoFrenzy;
 import com.cmdgod.mc.voracious_scythes.settingsclasses.PocketFarmSubtype;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 
+import dev.emi.trinkets.api.TrinketComponent;
+import dev.emi.trinkets.api.TrinketsApi;
+
+import java.util.Optional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -84,6 +91,8 @@ public class VoraciousScythes implements ModInitializer {
 	public static MusiclessDisc MUSICLESS_DISC;
 	public static PersonalDiscPlayer PERSONAL_DISC_PLAYER;
 	public static ScreenHandlerType PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE;
+
+	public static final Identifier UPDATE_TRACK_NUMBER_ID = new Identifier(MOD_NAMESPACE, "network_update_track");
 
 	public static final ItemGroup MUSIC_DISC_ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(MOD_NAMESPACE, "music_discs"),() -> new ItemStack(MUSICLESS_DISC));
 
@@ -204,11 +213,12 @@ public class VoraciousScythes implements ModInitializer {
 			return scythe.attackSweep(player, world, stack);
         });
 
+		/*
 		AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
 			ItemStack itemStack = player.getStackInHand(hand);
 			Item item = itemStack.getItem();
-			/* Manual spectator check is necessary because AttackBlockCallbacks
-               fire before the spectator check */
+			// Manual spectator check is necessary because AttackBlockCallbacks
+            // fire before the spectator check
 			if (player.isSpectator()) {
 				return ActionResult.PASS;
 			}
@@ -221,8 +231,8 @@ public class VoraciousScythes implements ModInitializer {
 		AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
 			ItemStack itemStack = player.getStackInHand(hand);
 			Item item = itemStack.getItem();
-			/* Manual spectator check is necessary because AttackBlockCallbacks
-               fire before the spectator check */
+			// Manual spectator check is necessary because AttackBlockCallbacks
+        	// fire before the spectator check
 			if (player.isSpectator()) {
 				return ActionResult.PASS;
 			}
@@ -231,6 +241,7 @@ public class VoraciousScythes implements ModInitializer {
 			}
 			return ActionResult.PASS;
         });
+		*/
 
 		/*
 		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
@@ -258,6 +269,24 @@ public class VoraciousScythes implements ModInitializer {
 			})));
         });
 		*/
+
+		ServerPlayNetworking.registerGlobalReceiver(VoraciousScythes.UPDATE_TRACK_NUMBER_ID, (server, serverPlayer, handler, buf, responseSender) -> {
+			server.execute(() -> {
+				int slot = buf.getInt(0);
+				int trackNumber = buf.getInt(1);
+				Optional<TrinketComponent> trinketsOptional = TrinketsApi.getTrinketComponent(serverPlayer);
+				if (trinketsOptional.isEmpty()) {
+					return;
+				}
+				TrinketComponent trinkets = trinketsOptional.get();
+				ItemStack stack = trinkets.getAllEquipped().get(slot).getRight();
+				if (!(stack.getItem() instanceof PersonalDiscPlayer)) {
+					return;
+				}
+				PersonalDiscPlayerPropertyDelegate propDele = new PersonalDiscPlayerPropertyDelegate(stack);
+				propDele.setByName("currentTrack", trackNumber);
+			});
+		});
 		
 	}
 

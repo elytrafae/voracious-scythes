@@ -51,8 +51,8 @@ public class PersonalDiscPlayerPropertyDelegate implements PropertyDelegate {
         String key = propertyNames.get(index);
         NbtCompound nbt = stack.getOrCreateNbt();
         nbt.putInt(key, value);
-        System.out.println(nbt);
-        System.out.println(stack);
+        //System.out.println(nbt);
+        //System.out.println(stack);
     }
 
     public void setByName(String name, int value) {

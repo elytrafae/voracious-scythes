@@ -82,6 +82,7 @@ public class PersonalDiscPlayer extends TrinketItem  {
 
     PositionedSoundInstance personalSoundInstance;
 
+    /* 
     @Override
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
         super.tick(stack, slot, entity);
@@ -93,6 +94,7 @@ public class PersonalDiscPlayer extends TrinketItem  {
         
         player.sendMessage(Text.of("MUSIC SHOULD BE PLAYING!"), true);
     }
+    */
 
     public ArrayList<ItemStack> getCountainedItems(ItemStack itemStack) {
         NbtCompound nbt = itemStack.getOrCreateNbt();
@@ -133,11 +135,20 @@ public class PersonalDiscPlayer extends TrinketItem  {
     }
     */
 
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        ItemStack stack = player.getStackInHand(hand);
+        player.openHandledScreen(new PersonalDiscPlayerNamedScreenHandlerFactory(stack, player));
+        return TypedActionResult.success(stack, true);
+    }
+
+    /*
     public ActionResult onLeftClick(PlayerEntity player, Hand hand, World world) {
         ItemStack stack = player.getStackInHand(hand);
         player.openHandledScreen(new PersonalDiscPlayerNamedScreenHandlerFactory(stack, player)); 
         return ActionResult.SUCCESS;
     }
+    */
 
 
 }

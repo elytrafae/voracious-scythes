@@ -41,24 +41,40 @@ public final class PersonalDiscPlayerInventory implements ImplementedInventory
         return false;
     }
 
-    public ItemStack getNextMusicDiscAfter(ItemStack stack) {
+    public int getFirstValidSlot() {
+        for (int i=0; i < items.size(); i++) {
+            if (isValidMusicDisc(items.get(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int getNextMusicDiscSlotAfter(int slot) {
         int slotNumber = items.size();
-        if (items.contains(stack)) {
-            slotNumber = items.indexOf(stack);
+        if (slot >= 0 && slot < items.size()) {
+            slotNumber = slot;
         }
         int i = slotNumber + 1;
         while (i != slotNumber) {
-            System.out.println("INFINITE LOOP! " + i + " || " + slotNumber);
+            //System.out.println("INFINITE LOOP! " + i + " || " + slotNumber);
             if (i >= items.size()) {
                 i = 0;
             }
             ItemStack itemStack = items.get(i);
             if (isValidMusicDisc(itemStack)) {
-                return items.get(i);
+                return i;
             }
             i++;
         }
-        return items.get(slotNumber);
+        return slotNumber;
+    }
+
+    public boolean hasDiscOnSlot(int slot) {
+        if (slot < 0) {
+            return false;
+        }
+        return isValidMusicDisc(items.get(slot));
     }
 
     public ItemStack getRandomMusicDisc() {
@@ -81,6 +97,14 @@ public final class PersonalDiscPlayerInventory implements ImplementedInventory
             if (isValidMusicDisc(itemStack)) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, Direction side) {
+        if (stack.isEmpty() || (stack.getItem() instanceof MusicDiscItem)) {
+            return true;
         }
         return false;
     }

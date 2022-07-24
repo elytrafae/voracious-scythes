@@ -18,6 +18,7 @@ import io.github.cottonmc.cotton.gui.widget.WPanel;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
 import io.github.cottonmc.cotton.gui.widget.WPlayerInvPanel;
 import io.github.cottonmc.cotton.gui.widget.WSlider;
+import io.github.cottonmc.cotton.gui.widget.WSprite;
 import io.github.cottonmc.cotton.gui.widget.data.Axis;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import io.github.cottonmc.cotton.gui.widget.icon.Icon;
@@ -26,6 +27,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.MusicDiscItem;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandlerContext;
@@ -45,15 +47,18 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
     public static final Identifier GET_VALUE_ANSWER_MESSAGE_ID = new Identifier(VoraciousScythes.MOD_NAMESPACE, "network_pdp_get_answer");
     public static final Identifier SET_VALUE_MESSAGE_ID = new Identifier(VoraciousScythes.MOD_NAMESPACE, "network_pdp_set");
 
-    private static Identifier repeatId = new Identifier(VoraciousScythes.MOD_NAMESPACE, "textures/ui/playmode_repeat.png");
-    private static Identifier repeatOneId = new Identifier(VoraciousScythes.MOD_NAMESPACE, "textures/ui/playmode_repeat_one.png");
-    private static Identifier randomId = new Identifier(VoraciousScythes.MOD_NAMESPACE, "textures/ui/playmode_random.png");
+    private static final Identifier repeatId = new Identifier(VoraciousScythes.MOD_NAMESPACE, "textures/ui/playmode_repeat.png");
+    private static final Identifier repeatOneId = new Identifier(VoraciousScythes.MOD_NAMESPACE, "textures/ui/playmode_repeat_one.png");
+    private static final Identifier randomId = new Identifier(VoraciousScythes.MOD_NAMESPACE, "textures/ui/playmode_random.png");
+    private static final Identifier HIGHLIGHT_TEXTURE = new Identifier(VoraciousScythes.MOD_NAMESPACE, "textures/ui/item_highlight.png");
 
     public static final List<Icon> PLAY_MODE_ICONS = List.of(new TextureIcon(repeatId), new TextureIcon(repeatOneId), new TextureIcon(randomId));
 
     private WButton modeSwitchButton;
     private WSlider volumeSlider;
+    private WSprite highlightSprite;
     private int currentPlayMode = 0;
+    private int currentHighlightedSlot = 0;
 
     public PersonalDiscPlayerDescription(int syncId, PlayerInventory playerInventory, PersonalDiscPlayerInventory itemInventory, PropertyDelegate propertyDelegate) {
         super(VoraciousScythes.PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE, syncId, playerInventory, itemInventory, propertyDelegate);
@@ -76,9 +81,9 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
             if (index == 0) { // Volume
                 volumeSlider.setValue(value);
             } else if (index == 1) { // Current Track
-
-            } else if (index == 2) {
-                setModeSwitchButtonIcon(value);
+                highlightSlot(value, false);
+            } else if (index == 2) { // Play Mode
+                setModeSwitchButtonIcon(value); 
             }
         });
 
@@ -91,9 +96,28 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
         for (int i=0; i < PersonalDiscPlayer.INVENTORY_ROWS; i++) {
             for (int j=0; j < PersonalDiscPlayer.INVENTORY_COLUMNS; j++) {
                 WItemSlot itemSlot = WItemSlot.of(itemInventory, i*PersonalDiscPlayer.INVENTORY_COLUMNS + j);
+                itemSlot.setFilter((stack) -> {
+                    if (stack.isEmpty() || (stack.getItem() instanceof MusicDiscItem)) {
+                        return true;
+                    }
+                    return false;
+                });
+                itemSlot.addChangeListener((slot, inventory, index, stack) -> {
+                    if (stack.isEmpty() && index == currentHighlightedSlot) {
+                        int newSlot = itemInventory.getFirstValidSlot();
+                        if (newSlot < 0) {
+                            newSlot = 0;
+                        }
+                        highlightSlot(newSlot);
+                    }
+                });
                 itemPanel.add(itemSlot, j, i);
             }
         }
+
+        highlightSprite = new WSprite(HIGHLIGHT_TEXTURE);
+        itemPanel.add(highlightSprite, 0, 0);
+
         root.add(itemPanel, 0, TITLE_HEIGHT);
 
         WPlainPanel musicPanel = new WPlainPanel();
@@ -114,6 +138,8 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
         });
 
         root.add(musicPanel, ITEM_SLOT_SIZE * PersonalDiscPlayer.INVENTORY_COLUMNS, TITLE_HEIGHT);
+
+
 
         WPlayerInvPanel playerInvPanel = this.createPlayerInventoryPanel();
         root.add(playerInvPanel, 0, PersonalDiscPlayer.INVENTORY_ROWS * ITEM_SLOT_SIZE + TITLE_HEIGHT + MISC_PADDING);
@@ -162,4 +188,19 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
         setModeSwitchButtonIcon(currentPlayMode);
         //propertyDelegate.set(2, playMode);
     }
+
+    private void highlightSlot(int slotNr) {
+        highlightSlot(slotNr, true);
+    }
+
+    private void highlightSlot(int slotNr, boolean notifyServer) {
+        currentHighlightedSlot = slotNr;
+        int row = slotNr / PersonalDiscPlayer.INVENTORY_COLUMNS;
+        int column = slotNr - (row * PersonalDiscPlayer.INVENTORY_COLUMNS);
+        highlightSprite.setLocation(column * ITEM_SLOT_SIZE, row * ITEM_SLOT_SIZE); // Funny enough, this actually ignores the fact that the parent is a Grid Panel?
+        if (notifyServer) {
+            setValueOnServer(1, slotNr);
+        }
+    }
+
 }
