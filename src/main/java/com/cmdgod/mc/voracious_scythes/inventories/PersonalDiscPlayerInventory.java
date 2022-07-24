@@ -56,6 +56,7 @@ public final class PersonalDiscPlayerInventory implements ImplementedInventory
             if (isValidMusicDisc(itemStack)) {
                 return items.get(i);
             }
+            i++;
         }
         return items.get(slotNumber);
     }
