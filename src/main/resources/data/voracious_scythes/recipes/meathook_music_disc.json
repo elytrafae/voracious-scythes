@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#PG",
+        "PMP",
+        "GP#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:rotten_flesh"
+        },
+        "P": {
+            "item": "minecraft:porkchop"
+        },
+        "G": {
+            "item": "minecraft:golden_sword"
+        },
+        "M": {
+            "item": "voracious_scythes:doom_disc_fragment"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:meathook_music_disc",
+        "count": 1
+    }
+}

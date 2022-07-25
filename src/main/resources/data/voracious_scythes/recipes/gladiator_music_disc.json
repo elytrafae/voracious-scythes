@@ -1,0 +1,35 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#G#",
+        "UMT",
+        "ORO"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:golden_sword"
+        },
+        "G": {
+            "item": "minecraft:golden_helmet"
+        },
+        "U": {
+            "item": "minecraft:golden_chestplate"
+        },
+        "M": {
+            "item": "voracious_scythes:doom_disc_fragment"
+        },
+        "T": {
+            "item": "minecraft:golden_leggings"
+        },
+        "O": {
+            "item": "minecraft:magma_cream"
+        },
+        "R": {
+            "item": "minecraft:golden_boots"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:gladiator_music_disc",
+        "count": 1
+    }
+}

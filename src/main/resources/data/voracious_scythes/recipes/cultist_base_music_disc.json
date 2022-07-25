@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#B#",
+        "_M_",
+        "NNN"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:quartz"
+        },
+        "B": {
+            "item": "minecraft:blaze_powder"
+        },
+        "_": {
+            "item": "minecraft:nether_brick_slab"
+        },
+        "M": {
+            "item": "voracious_scythes:doom_disc_fragment"
+        },
+        "N": {
+            "item": "minecraft:nether_bricks"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:cultist_base_music_disc",
+        "count": 1
+    }
+}

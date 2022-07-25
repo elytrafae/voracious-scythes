@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smithing",
+    "base": {
+        "item": "voracious_scythes:doom_disc_fragment"
+    },
+    "addition": {
+        "item": "minecraft:netherite_sword"
+    },
+    "result": {
+        "item": "voracious_scythes:rip_and_tear_music_disc"
+    }
+}

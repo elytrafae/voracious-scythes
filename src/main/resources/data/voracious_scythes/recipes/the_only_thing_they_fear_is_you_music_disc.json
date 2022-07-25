@@ -1,0 +1,41 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#WI",
+        "/DM",
+        "SGC"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:bow"
+        },
+        "W": {
+            "item": "minecraft:wither_skeleton_skull"
+        },
+        "I": {
+            "item": "minecraft:iron_sword"
+        },
+        "/": {
+            "item": "minecraft:blaze_rod"
+        },
+        "D": {
+            "item": "voracious_scythes:doom_disc_fragment"
+        },
+        "M": {
+            "item": "minecraft:magma_cream"
+        },
+        "S": {
+            "item": "minecraft:soul_lantern"
+        },
+        "G": {
+            "item": "minecraft:ghast_tear"
+        },
+        "C": {
+            "item": "minecraft:crossbow"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:the_only_thing_they_fear_is_you_music_disc",
+        "count": 1
+    }
+}

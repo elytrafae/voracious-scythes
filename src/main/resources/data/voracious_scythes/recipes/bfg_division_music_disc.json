@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#L#",
+        "LDL",
+        "#L#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:blaze_powder"
+        },
+        "L": {
+            "item": "minecraft:lime_dye"
+        },
+        "D": {
+            "item": "voracious_scythes:doom_disc_fragment"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:bfg_division_music_disc",
+        "count": 1
+    }
+}

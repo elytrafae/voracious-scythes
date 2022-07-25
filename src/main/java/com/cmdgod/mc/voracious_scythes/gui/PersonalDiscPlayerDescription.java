@@ -4,6 +4,7 @@ import java.util.IdentityHashMap;
 import java.util.List;
 
 import com.cmdgod.mc.voracious_scythes.VoraciousScythes;
+import com.cmdgod.mc.voracious_scythes.gui.elements.WPersonalDiscPlayerItemSlot;
 import com.cmdgod.mc.voracious_scythes.gui.elements.WSimpleTooltipSlider;
 import com.cmdgod.mc.voracious_scythes.inventories.PersonalDiscPlayerInventory;
 import com.cmdgod.mc.voracious_scythes.items.PersonalDiscPlayer;
@@ -20,6 +21,7 @@ import io.github.cottonmc.cotton.gui.widget.WPlayerInvPanel;
 import io.github.cottonmc.cotton.gui.widget.WSlider;
 import io.github.cottonmc.cotton.gui.widget.WSprite;
 import io.github.cottonmc.cotton.gui.widget.data.Axis;
+import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import io.github.cottonmc.cotton.gui.widget.icon.Icon;
 import io.github.cottonmc.cotton.gui.widget.icon.TextureIcon;
@@ -95,7 +97,7 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
         WGridPanel itemPanel = new WGridPanel();
         for (int i=0; i < PersonalDiscPlayer.INVENTORY_ROWS; i++) {
             for (int j=0; j < PersonalDiscPlayer.INVENTORY_COLUMNS; j++) {
-                WItemSlot itemSlot = WItemSlot.of(itemInventory, i*PersonalDiscPlayer.INVENTORY_COLUMNS + j);
+                WPersonalDiscPlayerItemSlot itemSlot = new WPersonalDiscPlayerItemSlot(itemInventory, i*PersonalDiscPlayer.INVENTORY_COLUMNS + j);
                 itemSlot.setFilter((stack) -> {
                     if (stack.isEmpty() || (stack.getItem() instanceof MusicDiscItem)) {
                         return true;
@@ -110,6 +112,13 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
                         }
                         highlightSlot(newSlot);
                     }
+                });
+                itemSlot.setOnClickEventHandler((x, y, button) -> {
+                    System.out.println(x + " || " + y + " || " + button);
+                    if (button == 1) {
+                        return InputResult.IGNORED;
+                    }
+                    return InputResult.PROCESSED;
                 });
                 itemPanel.add(itemSlot, j, i);
             }
