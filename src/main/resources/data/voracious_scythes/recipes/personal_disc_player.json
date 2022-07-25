@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "///",
+        "BRB",
+        "C C"
+    ],
+    "key": {
+        "/": {
+            "item": "minecraft:stick"
+        },
+        "B": {
+            "item": "minecraft:black_wool"
+        },
+        "R": {
+            "item": "minecraft:redstone_block"
+        },
+        "C": {
+            "item": "minecraft:chest"
+        }
+    },
+    "result": {
+        "item": "voracious_scythes:personal_disc_player",
+        "count": 1
+    }
+}

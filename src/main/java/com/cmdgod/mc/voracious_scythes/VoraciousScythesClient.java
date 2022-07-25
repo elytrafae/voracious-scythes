@@ -22,7 +22,7 @@ public class VoraciousScythesClient implements ClientModInitializer {
         
         //HandledScreens.register(VoraciousScythes.PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE, GenericContainerScreen::new);
         //ScreenRegistry.<PersonalDiscPlayerDescription, PersonalDiscPlayerScreen>register(VoraciousScythes.PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE, (gui, inventory, title) -> new PersonalDiscPlayerScreen(gui, inventory.player, title));
-        HandledScreens.register(VoraciousScythes.PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE, (gui, inventory, title) -> new PersonalDiscPlayerScreen(gui, inventory.player, title));
+        HandledScreens.<PersonalDiscPlayerDescription, PersonalDiscPlayerScreen>register(VoraciousScythes.PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE, (gui, inventory, title) -> new PersonalDiscPlayerScreen(gui, inventory.player, title));
     }
     
 }

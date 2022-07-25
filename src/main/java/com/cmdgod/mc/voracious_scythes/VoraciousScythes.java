@@ -272,9 +272,9 @@ public class VoraciousScythes implements ModInitializer {
 		*/
 
 		ServerPlayNetworking.registerGlobalReceiver(VoraciousScythes.UPDATE_TRACK_NUMBER_ID, (server, serverPlayer, handler, buf, responseSender) -> {
-			server.execute(() -> {
-				int slot = buf.getInt(0);
-				int trackNumber = buf.getInt(1);
+			int slot = buf.readInt();
+			int trackNumber = buf.readInt();
+			server.execute(() -> {	
 				Optional<TrinketComponent> trinketsOptional = TrinketsApi.getTrinketComponent(serverPlayer);
 				if (trinketsOptional.isEmpty()) {
 					return;

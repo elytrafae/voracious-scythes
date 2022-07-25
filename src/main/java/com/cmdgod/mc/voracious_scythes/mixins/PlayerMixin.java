@@ -219,8 +219,8 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
 
             propDelegate.setByName("currentTrack", discSlot);
             PacketByteBuf buf = PacketByteBufs.create();
-            buf.setInt(0, slotIndex);
-            buf.setInt(1, discSlot);
+            buf.writeInt(slotIndex);
+            buf.writeInt(discSlot);
             ClientPlayNetworking.send(VoraciousScythes.UPDATE_TRACK_NUMBER_ID, buf);
         }
     }

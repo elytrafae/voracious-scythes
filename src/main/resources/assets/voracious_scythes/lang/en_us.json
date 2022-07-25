@@ -8,11 +8,15 @@
     "item.voracious_scythes.doom_disc_fragment" : "DOOM Disc Fragment",
     "item.voracious_scythes.doom_disc_fragment.desc" : "The depths of hell have the finest of tunes!",
 
+    "voracious_scythes.playmode.0" : "Entire Playlist",
+    "voracious_scythes.playmode.1" : "Repeat One Song",
+    "voracious_scythes.playmode.2" : "Random",
+
     "item.voracious_scythes.personal_disc_player" : "Personal Disc Player",
-    "item.voracious_scythes.personal_disc_player.desc1" : "Plays the music discs you put into it.",
-    "item.voracious_scythes.personal_disc_player.desc2" : "Left-click it in your hand for more.",
-    "item.voracious_scythes.personal_disc_player.playlist" : "Playlist: ",
+    "item.voracious_scythes.personal_disc_player.desc" : "Plays the music discs you put into it.",
+    "item.voracious_scythes.personal_disc_player.nextdisc" : "Next Song: ",
     "item.voracious_scythes.personal_disc_player.noplaylist" : "No discs in yet.",
+    "item.voracious_scythes.personal_disc_player.playmode" : "Play Mode:",
     "item.voracious_scythes.personal_disc_player.volume" : "Volume: %d%%",
 
     "item.voracious_scythes.hourglass_meadow_music_disc" : "Music Disc",

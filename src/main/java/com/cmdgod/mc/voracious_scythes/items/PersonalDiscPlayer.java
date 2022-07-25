@@ -10,6 +10,7 @@ import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerPropertyDelegate;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerScreen;
 import com.cmdgod.mc.voracious_scythes.inventories.PersonalDiscPlayerInventory;
 import com.google.common.collect.Multimap;
+import com.terraformersmc.modmenu.util.TranslationUtil;
 
 import dev.emi.trinkets.api.SlotAttributes;
 import dev.emi.trinkets.api.SlotReference;
@@ -113,27 +114,36 @@ public class PersonalDiscPlayer extends TrinketItem  {
 
     final static public Style BASIC_DESC_STYLE = Style.EMPTY.withColor(Formatting.GRAY);
     final static public Style PLAYLIST_TITLE_STYLE = Style.EMPTY.withColor(Formatting.LIGHT_PURPLE);
-    final static public Style SONG_NAME_STYLE = Style.EMPTY.withColor(Formatting.WHITE);
+    final static public Style PLAY_MODE_STYLE = Style.EMPTY.withColor(Formatting.WHITE);
     final static public Style CURRENT_SONG_NAME_STYLE = Style.EMPTY.withColor(Formatting.GOLD);
 
-    /*
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(new TranslatableText("item.voracious_scythes.personal_disc_player.desc1").getWithStyle(BASIC_DESC_STYLE).get(0));
-        tooltip.add(new TranslatableText("item.voracious_scythes.personal_disc_player.desc2").getWithStyle(BASIC_DESC_STYLE).get(0));
-        ArrayList<ItemStack> items = getCountainedItems(itemStack);
-        if (items.size() <= 0) {
+        tooltip.add(new TranslatableText("item.voracious_scythes.personal_disc_player.desc").getWithStyle(BASIC_DESC_STYLE).get(0));
+
+        PersonalDiscPlayerPropertyDelegate propertyDelegate = new PersonalDiscPlayerPropertyDelegate(itemStack);
+
+        int playMode = propertyDelegate.getByName("playMode");
+        /*
+        TranslatableText modeText = new TranslatableText("voracious_scythes.playmode." + playMode);
+        System.out.println("MODE TEXT: " + modeText.asString());
+        tooltip.add(new TranslatableText("item.voracious_scythes.personal_disc_player.playmode").append(modeText).getWithStyle(PLAY_MODE_STYLE).get(0));
+        */
+        if (playMode == 2) { // Is random?
+            return;
+        }
+        PersonalDiscPlayerInventory inventory = new PersonalDiscPlayerInventory(itemStack);
+        if (inventory.isEmpty()) {
             tooltip.add(new TranslatableText("item.voracious_scythes.personal_disc_player.noplaylist").getWithStyle(PLAYLIST_TITLE_STYLE).get(0));
             return;
         }
-        tooltip.add(new TranslatableText("item.voracious_scythes.personal_disc_player.playlist").getWithStyle(PLAYLIST_TITLE_STYLE).get(0));
-        items.forEach((item) -> {
-            Identifier id = Registry.ITEM.getId(item.getItem());
-            String translationKey = "item." + id.getNamespace() + "." + id.getPath() + ".desc";
-            tooltip.add(new TranslatableText(translationKey).getWithStyle(SONG_NAME_STYLE).get(0));
-        });
+        int slotNr = propertyDelegate.getByName("currentTrack");
+        ItemStack disc = inventory.getStack(inventory.getNextMusicDiscSlotAfter(slotNr - 1));
+        tooltip.add(new TranslatableText("item.voracious_scythes.personal_disc_player.nextdisc").getWithStyle(PLAYLIST_TITLE_STYLE).get(0));
+        Identifier id = Registry.ITEM.getId(disc.getItem());
+        String translationKey = "item." + id.getNamespace() + "." + id.getPath() + ".desc";
+        tooltip.add(new TranslatableText(translationKey).getWithStyle(CURRENT_SONG_NAME_STYLE).get(0));
     }
-    */
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {

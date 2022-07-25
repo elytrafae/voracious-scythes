@@ -4,7 +4,6 @@ import java.util.IdentityHashMap;
 import java.util.List;
 
 import com.cmdgod.mc.voracious_scythes.VoraciousScythes;
-import com.cmdgod.mc.voracious_scythes.gui.elements.WPersonalDiscPlayerItemSlot;
 import com.cmdgod.mc.voracious_scythes.gui.elements.WSimpleTooltipSlider;
 import com.cmdgod.mc.voracious_scythes.inventories.PersonalDiscPlayerInventory;
 import com.cmdgod.mc.voracious_scythes.items.PersonalDiscPlayer;
@@ -14,6 +13,7 @@ import io.github.cottonmc.cotton.gui.networking.NetworkSide;
 import io.github.cottonmc.cotton.gui.networking.ScreenNetworking;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
+import io.github.cottonmc.cotton.gui.widget.WItem;
 import io.github.cottonmc.cotton.gui.widget.WItemSlot;
 import io.github.cottonmc.cotton.gui.widget.WPanel;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
@@ -25,6 +25,7 @@ import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import io.github.cottonmc.cotton.gui.widget.icon.Icon;
 import io.github.cottonmc.cotton.gui.widget.icon.TextureIcon;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -33,6 +34,7 @@ import net.minecraft.item.MusicDiscItem;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -97,7 +99,7 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
         WGridPanel itemPanel = new WGridPanel();
         for (int i=0; i < PersonalDiscPlayer.INVENTORY_ROWS; i++) {
             for (int j=0; j < PersonalDiscPlayer.INVENTORY_COLUMNS; j++) {
-                WPersonalDiscPlayerItemSlot itemSlot = new WPersonalDiscPlayerItemSlot(itemInventory, i*PersonalDiscPlayer.INVENTORY_COLUMNS + j);
+                WItemSlot itemSlot = WItemSlot.of(itemInventory, i*PersonalDiscPlayer.INVENTORY_COLUMNS + j);
                 itemSlot.setFilter((stack) -> {
                     if (stack.isEmpty() || (stack.getItem() instanceof MusicDiscItem)) {
                         return true;
@@ -112,13 +114,6 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
                         }
                         highlightSlot(newSlot);
                     }
-                });
-                itemSlot.setOnClickEventHandler((x, y, button) -> {
-                    System.out.println(x + " || " + y + " || " + button);
-                    if (button == 1) {
-                        return InputResult.IGNORED;
-                    }
-                    return InputResult.PROCESSED;
                 });
                 itemPanel.add(itemSlot, j, i);
             }
@@ -211,5 +206,15 @@ public class PersonalDiscPlayerDescription extends SyncedGuiDescription {
             setValueOnServer(1, slotNr);
         }
     }
+
+    @Override
+    public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
+        //player.sendMessage(Text.of(slotIndex + " || " + actionType.toString() + " || " + button), false);
+        if (slotIndex < PersonalDiscPlayer.INVENTORY_SIZE && button == 1 && blockInventory.getStack(slotIndex).getItem() instanceof MusicDiscItem) {
+            highlightSlot(slotIndex);
+            return;
+        }
+        super.onSlotClick(slotIndex, button, actionType, player);
+    };
 
 }
