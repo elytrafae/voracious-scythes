@@ -29,6 +29,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -65,9 +66,11 @@ import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.TornadoFrenzy;
 import com.cmdgod.mc.voracious_scythes.settingsclasses.PocketFarmSubtype;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 
+import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -99,6 +102,7 @@ public class VoraciousScythes implements ModInitializer {
 	public static BroomBase BROOM_BASE;
 
 	public static final Identifier UPDATE_TRACK_NUMBER_ID = new Identifier(MOD_NAMESPACE, "network_update_track");
+	public static final Identifier TRIGGER_BROOM_ABILITY_ID = new Identifier(MOD_NAMESPACE, "network_use_broom_ability");
 
 	public static final ItemGroup MUSIC_DISC_ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(MOD_NAMESPACE, "music_discs"),() -> new ItemStack(MUSICLESS_DISC));
 	public static final ItemGroup BROOM_ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(MOD_NAMESPACE, "brooms"),() -> new ItemStack(BROOM_BASE));
@@ -301,7 +305,34 @@ public class VoraciousScythes implements ModInitializer {
 				propDele.setByName("currentTrack", trackNumber);
 			});
 		});
+
+		ServerPlayNetworking.registerGlobalReceiver(VoraciousScythes.TRIGGER_BROOM_ABILITY_ID, (server, serverPlayer, handler, buf, responseSender) -> {
+			server.execute(() -> {	
+				ItemStack broomStack = getEquippedBroomStack(serverPlayer);
+				if (broomStack == null) {
+					return;
+				}
+				BROOM_BASE.useAbility(serverPlayer, broomStack);
+			});
+		});
 		
+	}
+
+	public static ItemStack getEquippedBroomStack(PlayerEntity player) {
+		Optional<TrinketComponent> trinketsOptional = TrinketsApi.getTrinketComponent(player);
+		if (trinketsOptional.isEmpty()) {
+			return null;
+		}
+		TrinketComponent trinkets = trinketsOptional.get();
+		List<Pair<SlotReference, ItemStack>> list = trinkets.getAllEquipped();
+		for (int i=0; i < list.size(); i++) {
+			Pair<SlotReference, ItemStack> pair = list.get(i);
+			ItemStack stack = pair.getRight();
+			if (stack.getItem() instanceof BroomBase) {
+				return stack;
+			}
+		}
+		return null;
 	}
 
 	public static SoundEvent registerSoundEvent(String name) {

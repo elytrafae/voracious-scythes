@@ -97,7 +97,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
             DurationSaveDTO dto = save.dtos.get(i);
             NbtCompound nbtDTO = new NbtCompound();
             nbtDTO.putString("id", dto.id);
-            nbtDTO.putString("scytheId", dto.scytheId);
+            nbtDTO.putString("scytheId", dto.itemId);
             nbtDTO.putInt("preStartTick", dto.preStartTick);
             nbtDTO.putInt("startTick", dto.startTick);
             nbtDTO.putInt("endTick", dto.endTick);

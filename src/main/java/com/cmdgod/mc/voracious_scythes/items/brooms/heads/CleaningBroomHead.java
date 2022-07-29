@@ -9,7 +9,7 @@ import net.minecraft.util.registry.Registry;
 public class CleaningBroomHead extends BroomHead {
     
     public CleaningBroomHead() {
-        super();
+        super(null);
         Registry.register(Registry.ITEM, new Identifier(VoraciousScythes.MOD_NAMESPACE, "cleaning_broom_head"), this);
     }
 

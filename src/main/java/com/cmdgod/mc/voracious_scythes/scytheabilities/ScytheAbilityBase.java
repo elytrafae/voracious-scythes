@@ -60,7 +60,7 @@ public class ScytheAbilityBase {
         this.id = id;
     }
 
-    public void modifyStackBeforeUse(PlayerEntity player, Hand hand, ItemStack stack) {
+    public void modifyStackBeforeUse(PlayerEntity player, ItemStack stack) {
 
     }
     

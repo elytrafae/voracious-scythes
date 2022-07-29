@@ -156,7 +156,7 @@ public class ScytheBase extends SwordItem {
             return new TypedActionResult<ItemStack>(ActionResult.PASS, player.getStackInHand(hand));
         }
         cdManager.useChargeFor(ability);
-        durationManager.startAbilityDuration(ability, player, hand, itemStack);
+        durationManager.startAbilityDuration(ability, player, itemStack);
             // ability.activeAbility(world, player, hand, this, itemStack);
         return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, player.getStackInHand(hand));
     }

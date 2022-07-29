@@ -25,8 +25,7 @@ public class SpeedBroomGem extends BroomGem {
     @Override
     public Multimap<EntityAttribute, EntityAttributeModifier> getBroomModifiers(Multimap<EntityAttribute, EntityAttributeModifier> modifiers, ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid) {
         // INSERT STUFF HERE IN OTHER CLASSES!
-        modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_gem_movement_speed", 0.2, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
-        modifiers.put(EntityAttributes.GENERIC_FLYING_SPEED, new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_gem_flying_speed", 0.2, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+        modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_gem_movement_speed", 0.30, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
         return modifiers;
     }
 

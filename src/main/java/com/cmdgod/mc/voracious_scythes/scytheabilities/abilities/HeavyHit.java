@@ -11,6 +11,7 @@ import com.google.common.collect.ImmutableCollection;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
@@ -47,7 +48,12 @@ public class HeavyHit extends ScytheAbilityBase {
         World world = player.getWorld();
         // TODO: Make this dynamic, relative to the weapon's damage stat!
         //player.sendMessage(Text.of("activeTick! " + startTick + " || " + endTick + " || " + tick), false);
-        entry.getScythe().sweep(player, world, 10);
+        Item item = entry.getItem();
+        if (!(item instanceof ScytheBase)) {
+            return;
+        }
+        ScytheBase scythe = (ScytheBase)item;
+        scythe.sweep(player, world, 10);
     }
 
     @Override

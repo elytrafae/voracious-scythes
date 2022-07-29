@@ -36,7 +36,7 @@ public class AbilityDurationManager {
         return false;
     }
 
-    public void startAbilityDuration(ScytheAbilityBase ability, PlayerEntity player, Hand hand, ItemStack itemStack) {
+    public void startAbilityDuration(ScytheAbilityBase ability, PlayerEntity player, ItemStack itemStack) {
         if (!ability.simultaneousChargesAllowed && doesAbilityAlreadyHaveEntry(ability)) {
             return;
         }
@@ -46,8 +46,8 @@ public class AbilityDurationManager {
         entry.endTick = entry.startTick + ability.duration;
         entry.postEndTick = entry.endTick + ability.postFireDuration;
         entry.ability = ability;
-        entry.scythe = (ScytheBase)itemStack.getItem();
-        ability.modifyStackBeforeUse(player, hand, itemStack);
+        entry.item = itemStack.getItem();
+        ability.modifyStackBeforeUse(player, itemStack);
         runTicksFor(entry, player);
     }
 
@@ -78,19 +78,18 @@ public class AbilityDurationManager {
         }
     }
 
-    public void restoreSaveData(String id, int preStartTick, int startTick, int endTick, int postEndTick, String scytheId) {
+    public void restoreSaveData(String id, int preStartTick, int startTick, int endTick, int postEndTick, String itemId) {
         Identifier identifier = new Identifier(id);
-        Identifier scytheIdentifier = new Identifier(id);
+        Identifier itemIdentifier = new Identifier(itemId);
         ScytheAbilityBase ability = ScytheAbilityBase.ABILITY_REGISTRY.get(identifier);
-        Item item = Registry.ITEM.get(scytheIdentifier);
-        if (ability == null || item == null || item instanceof ScytheBase) {return;}
-        ScytheBase scythe = (ScytheBase)item;
+        Item item = Registry.ITEM.get(itemIdentifier);
+        if (ability == null || item == null) {return;}
         Entry entry = this.addEntry();
         entry.preStartTick = preStartTick;
         entry.startTick = startTick;
         entry.endTick = endTick;
         entry.postEndTick = postEndTick;
-        entry.scythe = scythe;
+        entry.item = item;
         entry.ability = ability;
     }
 
@@ -102,7 +101,7 @@ public class AbilityDurationManager {
             minStartTick = getSmallestStartTick(iterator);
             while (iterator.hasNext()) {
                 Entry e = iterator.next();
-                String itemId = Registry.ITEM.getId(e.scythe).toString();
+                String itemId = Registry.ITEM.getId(e.item).toString();
                 save.dtos.add(new DurationSaveDTO(e.preStartTick - minStartTick, e.startTick - minStartTick, e.endTick - minStartTick, e.postEndTick - minStartTick, e.ability.id.toString(), itemId));
             }
         }
@@ -137,15 +136,15 @@ public class AbilityDurationManager {
         public int endTick;
         public int postEndTick;
         public String id; // This is the ability's id, btw.
-        public String scytheId;
+        public String itemId;
 
-        public DurationSaveDTO(int preStartTick, int startTick, int endTick, int postEndTick, String id, String scytheId) {
+        public DurationSaveDTO(int preStartTick, int startTick, int endTick, int postEndTick, String id, String itemId) {
             this.preStartTick = preStartTick;
             this.startTick = startTick;
             this.endTick = endTick;
             this.postEndTick = postEndTick;
             this.id = id;
-            this.scytheId = scytheId;
+            this.itemId = itemId;
         }
     }
 
@@ -160,7 +159,7 @@ public class AbilityDurationManager {
         public int preStartTick = -1;
         public int postEndTick = -1;
         public ScytheAbilityBase ability;
-        public ScytheBase scythe;
+        public Item item;
 
         public Entry() {
 
@@ -192,8 +191,8 @@ public class AbilityDurationManager {
             return originEntry.postEndTick;
         }
 
-        public ScytheBase getScythe() {
-            return originEntry.scythe;
+        public Item getItem() {
+            return originEntry.item;
         }
 
         public ScytheAbilityBase getAbility() {
