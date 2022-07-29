@@ -61,7 +61,7 @@ public class ScytheBase extends SwordItem {
     public double arc = Math.PI/2;
     //public ScytheAbilityBase ability = new HeavyHit();
 
-    private class entityPredicate implements Predicate<Entity> {
+    private class EntityPredicate implements Predicate<Entity> {
 
         @Override
         public boolean apply(Entity entity) {
@@ -165,19 +165,49 @@ public class ScytheBase extends SwordItem {
         Vec3d rotation = player.getRotationVector();
 		Vec3d eyePos = player.getEyePos();
 
-        Vec2f eyePlane = new Vec2f( (float) eyePos.x, (float) eyePos.z);
         Vec2f eyeRot2d = new Vec2f( (float) rotation.x, (float) rotation.z);
-        List<LivingEntity> entities = world.getEntitiesByClass(LivingEntity.class, Box.of(eyePos, reachDistance*2, reachDistance*2, reachDistance*2), new entityPredicate());
+        List<LivingEntity> entities = world.getEntitiesByClass(LivingEntity.class, Box.of(eyePos, reachDistance*2, reachDistance*2, reachDistance*2), new EntityPredicate());
         for (var i=0; i < entities.size(); i++) {
             Entity entity = entities.get(i);
             Vec3d entityPos = entity.getPos();
-            Vec2f entityVector2d = new Vec2f( (float) (entityPos.x - eyePlane.x), (float) (entityPos.z - eyePlane.y)).normalize(); // The entity's position, relative to the player's. Will be compared to the player's rotation as two vectors to find the angle between the two, and this the angular offset from the crosshair to the entity.
+            if (entityPos.squaredDistanceTo(eyePos) > reachDistance*reachDistance) {
+                break;
+            } 
+            Vec2f entityVector2d = new Vec2f( (float) (entityPos.x - eyePos.x), (float) (entityPos.z - eyePos.z)).normalize(); // The entity's position, relative to the player's. Will be compared to the player's rotation as two vectors to find the angle between the two, and this the angular offset from the crosshair to the entity.
             double angle = Math.acos(eyeRot2d.dot(entityVector2d) / ( eyeRot2d.length() * entityVector2d.length()) );
-            if (angle >= -arc && angle <= arc) {
-                entity.damage(DamageSource.player(player), damage);
+            if (angle < -arc || angle > arc) {
+                break;
             }
+            /*
+            // This is the part that doesn't work . . . Probably?
+            Vec3d entityEyePos = player.getEyePos();
+            double minAngle = calcYAngleBetween(eyePos, entityPos);
+            double maxAngle = calcYAngleBetween(eyePos, entityEyePos);
+            if (!isBetween(rotation.y, minAngle, maxAngle)) {
+                break;
+            }
+            ///////////////////////////////////////
+            */
+            // Add raycast check here.
+            entity.damage(DamageSource.player(player), damage);
         }
         player.spawnSweepAttackParticles();
+    }
+
+    private double calcYAngleBetween(Vec3d pos1, Vec3d pos2) {
+        Vec2f eyePlane = new Vec2f((float) Math.abs(pos1.x - pos2.x), (float) Math.abs(pos1.z - pos2.z));
+        float eyeDistance = eyePlane.length();
+        float heightDistance = (float) (pos1.y - pos2.y);
+        return Math.atan2(eyeDistance, heightDistance);
+    }
+
+    private boolean isBetween(double main, double min, double max) {
+        if (min > max) {
+            min = min + max;
+            max = min - max;
+            min = min - max;
+        }
+        return min < main && main < max;
     }
 
     public ActionResult attackSweep(PlayerEntity player, World world, ItemStack stack) {

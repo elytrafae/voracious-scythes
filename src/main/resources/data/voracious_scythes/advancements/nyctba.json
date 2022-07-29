@@ -1,0 +1,30 @@
+{
+    "__comment": "Made with TheDestruc7i0n's advancements generator: https://advancements.thedestruc7i0n.ca",
+    "display": {
+        "title": {
+            "text": "NOW'S YOUR CHANCE TO",
+            "color": "light_purple"
+        },
+        "description": {
+            "text": "Trade with Villagers 50 times!",
+            "color": "yellow"
+        },
+        "icon": {
+            "item": "voracious_scythes:nyctba_music_disc"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "lel": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "rewards": {
+        "experience": 19,
+        "function": "voracious_scythes:nyctba_reward"
+    },
+    "parent": "voracious_scythes:root"
+}

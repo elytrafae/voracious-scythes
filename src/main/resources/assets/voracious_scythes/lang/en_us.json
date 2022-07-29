@@ -58,6 +58,8 @@
 
     "item.voracious_scythes.mario_cbt_music_disc" : "Music Disc?",
     "item.voracious_scythes.mario_cbt_music_disc.desc" : "IDK. Put it in and find out.",
+    "item.voracious_scythes.nyctba_music_disc" : "Music Disc",
+    "item.voracious_scythes.nyctba_music_disc.desc" : "NOW'S YOUR CHANCE TO BE A [§kYTPMV§r]",
 
     "item.voracious_scythes.terminal_existence_music_disc" : "Music Disc",
     "item.voracious_scythes.terminal_existence_music_disc.desc" : "Roman Heuser - Terminal Existence",
@@ -77,5 +79,34 @@
     "item.voracious_scythes.gladiator_music_disc" : "Music Disc",
     "item.voracious_scythes.gladiator_music_disc.desc" : "Mick Gordon - Gladiator",
     "item.voracious_scythes.cultist_base_music_disc" : "Music Disc",
-    "item.voracious_scythes.cultist_base_music_disc.desc" : "Mick Gordon - Cultist Base"
+    "item.voracious_scythes.cultist_base_music_disc.desc" : "Mick Gordon - Cultist Base",
+
+    "itemGroup.voracious_scythes.brooms" : "Brooms (Voracious Scythes)",
+    "trinkets.slot.legs.broom": "Broom",
+
+    "item.voracious_scythes.broom": "Broom",
+
+    "item.voracious_scythes.wooden_broom_stick": "Wooden Broom Stick",
+    "item.voracious_scythes.wooden_broom_stick.prefix": "Wooden",
+    "item.voracious_scythes.gold_broom_stick": "Gold Broom Stick",
+    "item.voracious_scythes.gold_broom_stick.prefix": "Gold",
+    "item.voracious_scythes.stone_broom_stick": "Stone Broom Stick",
+    "item.voracious_scythes.stone_broom_stick.prefix": "Stone",
+    "item.voracious_scythes.iron_broom_stick": "Iron Broom Stick",
+    "item.voracious_scythes.iron_broom_stick.prefix": "Iron",
+    "item.voracious_scythes.diamond_broom_stick": "Diamond Broom Stick",
+    "item.voracious_scythes.diamond_broom_stick.prefix": "Diamond",
+    "item.voracious_scythes.netherite_broom_stick": "Netherite Broom Stick",
+    "item.voracious_scythes.netherite_broom_stick.prefix": "Netherite",
+
+    "item.voracious_scythes.empty_broom_gem": "Empty Broom Gem",
+    "item.voracious_scythes.empty_broom_gem.prefix": "",
+    "item.voracious_scythes.speed_broom_gem": "Speed Broom Gem",
+    "item.voracious_scythes.speed_broom_gem.prefix": "Speed",
+    "item.voracious_scythes.armored_broom_gem": "Armored Broom Gem",
+    "item.voracious_scythes.armored_broom_gem.prefix": "Armored",
+    
+
+    "item.voracious_scythes.cleaning_broom_head": "Cleaning Broom Head",
+    "item.voracious_scythes.cleaning_broom_head.prefix": ""
 }

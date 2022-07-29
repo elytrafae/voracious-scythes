@@ -97,21 +97,6 @@ public class PersonalDiscPlayer extends TrinketItem  {
     }
     */
 
-    public ArrayList<ItemStack> getCountainedItems(ItemStack itemStack) {
-        NbtCompound nbt = itemStack.getOrCreateNbt();
-        if (!nbt.contains(INVENTORY_NAME)) {
-            nbt.put(INVENTORY_NAME, new NbtList());
-            return new ArrayList<ItemStack>();
-        }
-        NbtList itemList = nbt.getList(INVENTORY_NAME, 10);
-        ArrayList<ItemStack> items = new ArrayList<ItemStack>();
-        for (int i=0; i < itemList.size(); i++) {
-            NbtCompound nbtItem = itemList.getCompound(i);
-            items.add(ItemStack.fromNbt(nbtItem));
-        }
-        return items;
-    }
-
     final static public Style BASIC_DESC_STYLE = Style.EMPTY.withColor(Formatting.GRAY);
     final static public Style PLAYLIST_TITLE_STYLE = Style.EMPTY.withColor(Formatting.LIGHT_PURPLE);
     final static public Style PLAY_MODE_STYLE = Style.EMPTY.withColor(Formatting.WHITE);

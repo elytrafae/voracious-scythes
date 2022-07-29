@@ -49,6 +49,10 @@ import com.cmdgod.mc.voracious_scythes.inventories.PersonalDiscPlayerInventory;
 import com.cmdgod.mc.voracious_scythes.items.PersonalDiscPlayer;
 import com.cmdgod.mc.voracious_scythes.items.PosableMannequin;
 import com.cmdgod.mc.voracious_scythes.items.ScytheBase;
+import com.cmdgod.mc.voracious_scythes.items.brooms.BroomBase;
+import com.cmdgod.mc.voracious_scythes.items.brooms.BroomGem;
+import com.cmdgod.mc.voracious_scythes.items.brooms.BroomHead;
+import com.cmdgod.mc.voracious_scythes.items.brooms.BroomStick;
 import com.cmdgod.mc.voracious_scythes.items.musicdiscs.DoomDiscFragment;
 import com.cmdgod.mc.voracious_scythes.items.musicdiscs.ModdedMusicDisc;
 import com.cmdgod.mc.voracious_scythes.items.musicdiscs.MusiclessDisc;
@@ -92,9 +96,12 @@ public class VoraciousScythes implements ModInitializer {
 	public static PersonalDiscPlayer PERSONAL_DISC_PLAYER;
 	public static ScreenHandlerType PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE;
 
+	public static BroomBase BROOM_BASE;
+
 	public static final Identifier UPDATE_TRACK_NUMBER_ID = new Identifier(MOD_NAMESPACE, "network_update_track");
 
 	public static final ItemGroup MUSIC_DISC_ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(MOD_NAMESPACE, "music_discs"),() -> new ItemStack(MUSICLESS_DISC));
+	public static final ItemGroup BROOM_ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(MOD_NAMESPACE, "brooms"),() -> new ItemStack(BROOM_BASE));
 
 	//public static BlockEntityType<PocketFarmEntity> POCKET_FARM_ENTITY;
 
@@ -149,6 +156,7 @@ public class VoraciousScythes implements ModInitializer {
 
 		// Troll discs
 		ModdedMusicDisc MARIO_CBT_MUSIC_DISC = new ModdedMusicDisc("mario_cbt", Rarity.EPIC);
+		ModdedMusicDisc NYCTBA_MUSIC_DISC = new ModdedMusicDisc("nyctba", Rarity.EPIC);
 
 		// Special discs
 		ModdedMusicDisc TERMINAL_EXISTENCE_MUSIC_DISC = new ModdedMusicDisc("terminal_existence", Rarity.EPIC);
@@ -169,6 +177,11 @@ public class VoraciousScythes implements ModInitializer {
 
 		ScreenHandlerType<PersonalDiscPlayerDescription> type = new ScreenHandlerType<>((syncId, inventory) -> new PersonalDiscPlayerDescription(syncId, inventory, new PersonalDiscPlayerInventory(new ItemStack(PERSONAL_DISC_PLAYER)), new PersonalDiscPlayerPropertyDelegate(new ItemStack(PERSONAL_DISC_PLAYER))));
 		PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE = Registry.register(Registry.SCREEN_HANDLER, new Identifier(MOD_NAMESPACE, "personal_disc_player"), type);
+
+		BROOM_BASE = new BroomBase();
+		BroomStick.registerMySticks();
+		BroomGem.registerMyGems();
+		BroomHead.registerMyHeads();
 
 		SUGARCANE_FARM.selfRegister();
 		WOOL_FARM.selfRegister();

@@ -41,6 +41,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.BundleItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.nbt.NbtCompound;
@@ -202,7 +203,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
 
             if (playMode == 2) {
                 MusicDiscItem disc = (MusicDiscItem)inventory.getRandomMusicDisc().getItem();
-                personalJukeboxPlaySong(disc, volume);
+                personalJukeboxPlaySong(disc, volume, player);
                 return;
             }
 
@@ -211,7 +212,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
                 discSlot = inventory.getFirstValidSlot();
             }
             MusicDiscItem disc = (MusicDiscItem)inventory.getStack(discSlot).getItem();
-            personalJukeboxPlaySong(disc, volume);
+            personalJukeboxPlaySong(disc, volume, player);
 
             if (playMode == 0) {
                 discSlot = inventory.getNextMusicDiscSlotAfter(discSlot);
@@ -232,11 +233,13 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
         return !MinecraftClient.getInstance().getSoundManager().isPlaying(personalSoundInstance);
     }
 
-    private void personalJukeboxPlaySong(MusicDiscItem disc, int volume) {
+    private void personalJukeboxPlaySong(MusicDiscItem disc, int volume, PlayerEntity player) {
+        boolean shouldMute = !player.getWorld().isClient || !player.isMainPlayer();
+        float trueVolume = shouldMute ? 0 : ((float)volume)/100;
         Identifier id = disc.getSound().getId();
         SoundManager soundManager = MinecraftClient.getInstance().getSoundManager();
         soundManager.stopSounds(null, SoundCategory.MUSIC);
-        personalSoundInstance = new PositionedSoundInstance(id, SoundCategory.PLAYERS, ((float)volume)/100, 1, false, 0, SoundInstance.AttenuationType.NONE, 0, 0, 0, true);
+        personalSoundInstance = new PositionedSoundInstance(id, SoundCategory.PLAYERS, trueVolume, 1, false, 0, SoundInstance.AttenuationType.NONE, 0, 0, 0, true);
         MinecraftClient.getInstance().getSoundManager().play(personalSoundInstance);
     }
 

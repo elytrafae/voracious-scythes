@@ -206,5 +206,73 @@
                 "stream" : true
             }
         ]
+    },
+    "nyctba" : {
+        "sounds" : [
+            {
+                "name" : "voracious_scythes:nyctba/nyctba1",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba2",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba3",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba4",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba5",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba6",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba7",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba8",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba9",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba10",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba11",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba12",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba13",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba14",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba15",
+                "stream" : true
+            },
+            {
+                "name" : "voracious_scythes:nyctba/nyctba16",
+                "stream" : true
+            }
+        ]
     }
 }
