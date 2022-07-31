@@ -110,10 +110,14 @@ public class ScytheBase extends SwordItem {
             tooltip.add(Text.of("Use a Scything Table to give this item").getWithStyle(NO_ABILITY_STYLE).get(0));
             tooltip.add(Text.of("a unique ability or to upgrade it.").getWithStyle(NO_ABILITY_STYLE).get(0));
         } else {
-            tooltip.add(ability.name);
-            tooltip.add(Text.of("Cooldown: " + (((float)ability.cooldown) / 20) + " seconds").getWithStyle(ABILITY_CD_STYLE).get(0));
-            tooltip.addAll(ability.description);
+            addAbilityDescriptionToTooltip(tooltip, ability);
         }
+    }
+
+    public static void addAbilityDescriptionToTooltip(List<Text> tooltip, ScytheAbilityBase ability) {
+        tooltip.add(ability.name);
+        tooltip.add(Text.of("Cooldown: " + (((float)ability.cooldown) / 20) + " seconds").getWithStyle(ABILITY_CD_STYLE).get(0));
+        tooltip.addAll(ability.description);
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {

@@ -65,6 +65,11 @@ public class AbilityDurationManager {
         }
     }
 
+    public static int getTickFor(PlayerEntity player) {
+        PlayerExtension playerExt = (PlayerExtension)player;
+        return playerExt.getAbilityDurationManager().tick;
+    }
+
     private void runTicksFor(Entry entry, PlayerEntity player) {
         entry.ability.globalActiveAbilityTick(new PublicAbilityDurationEntry(entry), tick, player);
         if (tick <= entry.startTick) {
@@ -74,7 +79,7 @@ public class AbilityDurationManager {
             entry.ability.activeTick(new PublicAbilityDurationEntry(entry), tick, player);
         }
         if (tick >= entry.endTick && tick <= entry.postEndTick) {
-            entry.ability.activeTick(new PublicAbilityDurationEntry(entry), tick, player);
+            entry.ability.postFireTick(new PublicAbilityDurationEntry(entry), tick, player);
         }
     }
 

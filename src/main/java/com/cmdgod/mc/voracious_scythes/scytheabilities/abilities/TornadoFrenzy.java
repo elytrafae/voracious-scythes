@@ -3,7 +3,6 @@ package com.cmdgod.mc.voracious_scythes.scytheabilities.abilities;
 import java.util.ArrayList;
 import java.util.List;
 import com.cmdgod.mc.voracious_scythes.VoraciousScythes;
-import com.cmdgod.mc.voracious_scythes.items.ScytheBase;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.ScytheAbilityBase;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.AbilityDurationManager.PublicAbilityDurationEntry;
 import com.google.common.base.Predicate;
@@ -12,7 +11,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
@@ -28,7 +26,7 @@ public class TornadoFrenzy extends ScytheAbilityBase {
 
         @Override
         public boolean apply(Entity entity) {
-            return true;
+            return entity instanceof LivingEntity;
         }
 
     }

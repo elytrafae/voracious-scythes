@@ -1,18 +1,23 @@
 package com.cmdgod.mc.voracious_scythes.items.brooms;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import com.cmdgod.mc.voracious_scythes.VoraciousScythes;
+import com.cmdgod.mc.voracious_scythes.items.ScytheBase;
 import com.cmdgod.mc.voracious_scythes.mixinextensions.PlayerExtension;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.AbilityCooldownManager;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.AbilityDurationManager;
+import com.cmdgod.mc.voracious_scythes.scytheabilities.ScytheAbilityBase;
 import com.google.common.collect.Multimap;
 import com.terraformersmc.modmenu.util.TranslationUtil;
 
 import dev.emi.trinkets.api.SlotAttributes;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -44,6 +49,7 @@ public class BroomBase extends TrinketItem {
 
     public static final Style STAT_TITLE_STYLE = Style.EMPTY.withColor(Formatting.GRAY);
     public static final Style STAT_STYLE = Style.EMPTY.withColor(Formatting.BLUE);
+    public static final Style NEGATIVE_STAT_STYLE = Style.EMPTY.withColor(Formatting.RED);
 
     private final String STICK_NBT_ADDRESS = "BroomStick";
     private final String GEM_NBT_ADDRESS = "BroomGem";
@@ -61,16 +67,18 @@ public class BroomBase extends TrinketItem {
         modifiers = getGem(stack).getBroomModifiers(modifiers, stack, slot, entity, uuid);
 
         BroomStick broomStick = getStick(stack);
-        /* IF STACKING CAUSES ISSUES, FIGURE OUT HOW TO DO THIS!
+        double valueSoFar = 0;
+        // Stacking causes issues, so I guess I gotta fix this.
         if (modifiers.containsKey(EntityAttributes.GENERIC_ATTACK_DAMAGE)) {
-            modifiers.get(EntityAttributes.GENERIC_ATTACK_DAMAGE).
-        } else {
-            modifiers.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_melee_attack_damage", broomStick.getMeleeDamage(), EntityAttributeModifier.Operation.ADDITION));
+            Collection<EntityAttributeModifier> attributeCollection = modifiers.get(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+            for (EntityAttributeModifier entityAttributeModifier : attributeCollection) {
+                valueSoFar += entityAttributeModifier.getValue();
+            }
+            attributeCollection.clear();
         }
-        */
-
-        modifiers.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_melee_attack_damage", broomStick.getMeleeDamage(), EntityAttributeModifier.Operation.ADDITION));
-
+        modifiers.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, 
+            new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_melee_attack_damage", 
+            broomStick.getMeleeDamage() + valueSoFar, EntityAttributeModifier.Operation.ADDITION));
         return modifiers;
     }
 
@@ -166,23 +174,15 @@ public class BroomBase extends TrinketItem {
         return Text.of(text);
     }
 
-    /* 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-        ItemStack stack = player.getStackInHand(hand);
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         BroomHead head = getHead(stack);
-        if (head.ability == null) {
-            player.sendMessage(Text.of("Your broom has no active abilities!"), true);
-            return TypedActionResult.fail(stack);
+        ScytheAbilityBase ability = head.ability;
+        if (ability != null) {
+            ScytheBase.addAbilityDescriptionToTooltip(tooltip, ability);
         }
-        PlayerExtension playerExt = (PlayerExtension)player;
-        AbilityCooldownManager cdManager = playerExt.getCdManager();
-        AbilityDurationManager durationManager = playerExt.getAbilityDurationManager();
-        cdManager.useChargeFor(head.ability);
-        durationManager.startAbilityDuration(head.ability, player, hand, stack);
-        return TypedActionResult.success(stack);
+        super.appendTooltip(stack, world, tooltip, context);
     }
-    */
 
     public void useAbility(PlayerEntity player, ItemStack stack) {
         BroomHead head = getHead(stack);
@@ -196,6 +196,16 @@ public class BroomBase extends TrinketItem {
         AbilityDurationManager durationManager = playerExt.getAbilityDurationManager();
         cdManager.useChargeFor(head.ability);
         durationManager.startAbilityDuration(head.ability, player, stack);
+    }
+
+    @Override
+    public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        //super.tick(stack, slot, entity);
+        BroomHead head = getHead(stack);
+        if (head == null) {
+            return;
+        }
+        head.ability.passiveTick((PlayerEntity)entity);
     }
     
 }

@@ -79,6 +79,10 @@ public class ScytheAbilityBase {
 
     }
 
+    public void passiveTick(PlayerEntity player) {
+        
+    }
+
     public void changeDescription(ArrayList<String> desc) {
         description = new ArrayList<Text>();
         for (int i=0; i < desc.size(); i++) {

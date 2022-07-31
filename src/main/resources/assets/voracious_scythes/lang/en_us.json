@@ -118,10 +118,28 @@
     "item.voracious_scythes.solid_broom_gem.prefix": "Solid",
     "item.voracious_scythes.strong_broom_gem": "Broom Gem of Strength",
     "item.voracious_scythes.strong_broom_gem.prefix": "Strong",
+    "item.voracious_scythes.extra_healthy_broom_gem": "Health Hoarder's Broom Gem",
+    "item.voracious_scythes.extra_healthy_broom_gem.prefix": "Extra Healthy",
+    "item.voracious_scythes.heavy_armor_broom_gem": "Heavily Armored Broom Gem",
+    "item.voracious_scythes.heavy_armor_broom_gem.prefix": "Heavily Armored",
+    "item.voracious_scythes.guerrilla_broom_gem": "Guerilla Broom Gem",
+    "item.voracious_scythes.guerrilla_broom_gem.prefix": "Guerrilla",
+    "item.voracious_scythes.axethusiast_broom_gem": "Axethusiast Broom Gem",
+    "item.voracious_scythes.axethusiast_broom_gem.prefix": "Axethusiast",
     
 
     "item.voracious_scythes.cleaning_broom_head": "Cleaning Broom Head",
     "item.voracious_scythes.cleaning_broom_head.prefix": "",
     "item.voracious_scythes.witch_broom_head": "Witch's Broom Head",
-    "item.voracious_scythes.witch_broom_head.prefix": "Witch's"
+    "item.voracious_scythes.witch_broom_head.prefix": "Witch's",
+    "item.voracious_scythes.blinking_broom_head": "Blinking Broom Head",
+    "item.voracious_scythes.blinking_broom_head.prefix": "Blinking",
+    "item.voracious_scythes.brewer_broom_head": "Brewer's Broom Head",
+    "item.voracious_scythes.brewer_broom_head.prefix": "Brewer's",
+    "item.voracious_scythes.blazing_broom_head": "Blazing Broom Head",
+    "item.voracious_scythes.blazing_broom_head.prefix": "Blazing",
+    "item.voracious_scythes.apprentice_broom_head": "Apprentice's Broom Head",
+    "item.voracious_scythes.apprentice_broom_head.prefix": "Floating",
+    "item.voracious_scythes.guardian_broom_head": "Guardian's Broom Head",
+    "item.voracious_scythes.guardian_broom_head.prefix": "Guardian's"
 }

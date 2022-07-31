@@ -6,15 +6,9 @@ import com.cmdgod.mc.voracious_scythes.VoraciousScythes;
 import com.cmdgod.mc.voracious_scythes.items.ScytheBase;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.ScytheAbilityBase;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.AbilityDurationManager.PublicAbilityDurationEntry;
-import com.google.common.collect.ImmutableCollection;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 

@@ -6,9 +6,13 @@ import java.util.UUID;
 
 import com.cmdgod.mc.voracious_scythes.VoraciousScythes;
 import com.cmdgod.mc.voracious_scythes.items.brooms.gems.ArmoredBroomGem;
+import com.cmdgod.mc.voracious_scythes.items.brooms.gems.AxethusiastBroomGem;
 import com.cmdgod.mc.voracious_scythes.items.brooms.gems.EmptyBroomGem;
+import com.cmdgod.mc.voracious_scythes.items.brooms.gems.ExtraHealthyBroomGem;
+import com.cmdgod.mc.voracious_scythes.items.brooms.gems.GuerrillaBroomGem;
 import com.cmdgod.mc.voracious_scythes.items.brooms.gems.HastyBroomGem;
 import com.cmdgod.mc.voracious_scythes.items.brooms.gems.HealthyBroomGem;
+import com.cmdgod.mc.voracious_scythes.items.brooms.gems.HeavyArmorBroomGem;
 import com.cmdgod.mc.voracious_scythes.items.brooms.gems.RubberBroomGem;
 import com.cmdgod.mc.voracious_scythes.items.brooms.gems.SolidBroomGem;
 import com.cmdgod.mc.voracious_scythes.items.brooms.gems.SpeedBroomGem;
@@ -52,6 +56,10 @@ public class BroomGem extends Item {
         HealthyBroomGem HEALTHY_BROOM_GEM = new HealthyBroomGem();
         SolidBroomGem SOLID_BROOM_GEM = new SolidBroomGem();
         StrongBroomGem STRONG_BROOM_GEM = new StrongBroomGem();
+        ExtraHealthyBroomGem EXTRA_HEALTHY_BROOM_GEM = new ExtraHealthyBroomGem();
+        HeavyArmorBroomGem HEAVILY_ARMORED_BROOM_GEM = new HeavyArmorBroomGem();
+        GuerrillaBroomGem GUERRILLA_BROOM_GEM = new GuerrillaBroomGem();
+        AxethusiastBroomGem AXETHUSIAST_BROOM_GEM = new AxethusiastBroomGem();
     }
 
     @Override
@@ -64,9 +72,11 @@ public class BroomGem extends Item {
         tooltip.add(new TranslatableText("voracious_scythes.when_put_on_broom").setStyle(BroomBase.STAT_TITLE_STYLE));
         map.forEach((entityAttribute, entityAttributeModifier) -> {
             double value = entityAttributeModifier.getValue();
+            double absValue = Math.abs(value);
+            double displayValue = (absValue == (int)absValue) ? (int)absValue : absValue;
             String attributeNameString = new TranslatableText(entityAttribute.getTranslationKey()).getString();
             String mainTransKey = "attribute.modifier." + (value < 0 ? "take" : "plus") + "." + entityAttributeModifier.getOperation().getId();
-            tooltip.add(new TranslatableText(mainTransKey, value, attributeNameString).setStyle(BroomBase.STAT_STYLE));
+            tooltip.add(new TranslatableText(mainTransKey, displayValue, attributeNameString).setStyle(value < 0 ? BroomBase.NEGATIVE_STAT_STYLE : BroomBase.STAT_STYLE));
         });
     }
 

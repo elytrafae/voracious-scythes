@@ -9,6 +9,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.sound.SoundInstance.AttenuationType;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
@@ -16,22 +18,21 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 
-public class BroomFlightAbility extends ScytheAbilityBase {
+public class BroomFloatAbility extends ScytheAbilityBase {
 
-    public BroomFlightAbility() {
-        super("Witch's Flight", 1200, new ArrayList<String>(), new Identifier(VoraciousScythes.MOD_NAMESPACE, "broom_flight_ability"));
+    public BroomFloatAbility() {
+        super("Apprentice's Float", 200, new ArrayList<String>(), new Identifier(VoraciousScythes.MOD_NAMESPACE, "broom_float_ability"));
         ArrayList<String> desc = new ArrayList<String>();
 
-        this.duration = 120; // 6 seconds.
+        this.duration = 0; // Instant
         this.preFireDuration = 0;
         this.postFireDuration = 0;
 
-        desc.add("Fly in the direction you ");
-        desc.add("want in for " + (((float)this.duration)/20) + " seconds.");
+        desc.add("Passive: Slow Falling II unless Sneaking.");
+        desc.add("Activate to launch yourself upwards.");
         this.changeDescription(desc);
     }
 
-    PositionedSoundInstance flyingSoundInstance;
     PositionedSoundInstance liftoffSoundInstance;
 
     @Override
@@ -39,9 +40,6 @@ public class BroomFlightAbility extends ScytheAbilityBase {
         World world = player.getWorld();
         if (world.isClient && player.isMainPlayer()) {
             SoundManager soundManager = MinecraftClient.getInstance().getSoundManager();
-            Identifier id = new Identifier("minecraft:item.elytra.flying");
-            flyingSoundInstance = new PositionedSoundInstance(id, SoundCategory.PLAYERS, (float) 0.75, 1, true, 0, AttenuationType.NONE, 0, 0, 0, true);
-            soundManager.play(flyingSoundInstance);
 
             Identifier id2 = new Identifier("entity.firework_rocket.launch");
             liftoffSoundInstance = new PositionedSoundInstance(id2, SoundCategory.PLAYERS, 1, 1, false, 0, AttenuationType.NONE, 0, 0, 0, true);
@@ -51,19 +49,25 @@ public class BroomFlightAbility extends ScytheAbilityBase {
 
     @Override
     public void activeTick(PublicAbilityDurationEntry entry, int tick, PlayerEntity player) {
-        Vec3d rotation = player.getRotationVector().normalize();
+        Vec3d velocity = player.getVelocity();
+        Vec3d newVelocity = new Vec3d(velocity.x, 2, velocity.z);
         player.fallDistance = 0;
-        player.setVelocity(rotation.multiply(1.2));
+        player.setVelocity(newVelocity);
+    }
+
+    @Override
+    public void passiveTick(PlayerEntity player) {
+        if (player.isSneaking()) {
+            player.removeStatusEffect(StatusEffects.SLOW_FALLING);
+            return;
+        }
+        StatusEffectInstance instance = new StatusEffectInstance(StatusEffects.SLOW_FALLING, 60, 1, true, false, true);
+        player.addStatusEffect(instance);
     }
 
     @Override
     public void postFireTick(PublicAbilityDurationEntry entry, int tick, PlayerEntity player) {
-        World world = player.getWorld();
-        if (world.isClient && player.isMainPlayer()) {
-            SoundManager soundManager = MinecraftClient.getInstance().getSoundManager();
-            soundManager.stop(flyingSoundInstance);
-            soundManager.stop(liftoffSoundInstance);
-        }
+
     }
 
     @Override
