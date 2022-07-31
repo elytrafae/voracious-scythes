@@ -62,7 +62,10 @@ public class BroomBlockAbility extends ScytheAbilityBase {
         //player.addStatusEffect(instance);
         if (AbilityDurationManager.getTickFor(player) % REGENERATION_INTERVAL == 0) {
             if (player.getHealth() < player.getMaxHealth()) {
-                player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_BELL, SoundCategory.PLAYERS, (float)0.5, (float)1.5);
+                World world = player.getWorld();
+                if (world.isClient) {
+                    player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_BELL, SoundCategory.PLAYERS, (float)0.5, (float)1.5);
+                }
                 player.heal(1);
             } 
         }

@@ -7,6 +7,8 @@ import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerDescription;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerScreen;
 import com.cmdgod.mc.voracious_scythes.gui.ScythingTableGuiDescription;
 import com.cmdgod.mc.voracious_scythes.gui.ScythingTableScreen;
+import com.cmdgod.mc.voracious_scythes.gui.broomtable.BroomTableDescription;
+import com.cmdgod.mc.voracious_scythes.gui.broomtable.BroomTableScreen;
 import com.cmdgod.mc.voracious_scythes.items.PersonalDiscPlayer;
 
 import net.fabricmc.api.ClientModInitializer;
@@ -37,6 +39,8 @@ public class VoraciousScythesClient implements ClientModInitializer {
         //HandledScreens.register(VoraciousScythes.PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE, GenericContainerScreen::new);
         //ScreenRegistry.<PersonalDiscPlayerDescription, PersonalDiscPlayerScreen>register(VoraciousScythes.PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE, (gui, inventory, title) -> new PersonalDiscPlayerScreen(gui, inventory.player, title));
         HandledScreens.<PersonalDiscPlayerDescription, PersonalDiscPlayerScreen>register(VoraciousScythes.PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE, (gui, inventory, title) -> new PersonalDiscPlayerScreen(gui, inventory.player, title));
+
+        HandledScreens.<BroomTableDescription, BroomTableScreen>register(VoraciousScythes.BROOM_TABLE_SCREEN_HANDLER_TYPE, (gui, inventory, title) -> new BroomTableScreen(gui, inventory.player, title));
 
         BROOM_ABILITY_KEYBIND = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.voracious_scythes.broom_ability", // The translation key of the keybinding's name

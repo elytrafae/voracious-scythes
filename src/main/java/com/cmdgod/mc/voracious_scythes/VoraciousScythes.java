@@ -40,8 +40,10 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.screen.PropertyDelegate;
 
+import com.cmdgod.mc.voracious_scythes.blockentities.BroomTableEntity;
 import com.cmdgod.mc.voracious_scythes.blockentities.PocketFarmEntity;
 import com.cmdgod.mc.voracious_scythes.blockentities.ScythingTableEntity;
+import com.cmdgod.mc.voracious_scythes.blocks.BroomTable;
 import com.cmdgod.mc.voracious_scythes.blocks.PocketFarm;
 import com.cmdgod.mc.voracious_scythes.blocks.ScythingTable;
 import com.cmdgod.mc.voracious_scythes.blocks.PocketFarms.SugarCanePocketFarm;
@@ -51,6 +53,7 @@ import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerNamedScreenHandlerF
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerPropertyDelegate;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerScreen;
 import com.cmdgod.mc.voracious_scythes.gui.ScythingTableGuiDescription;
+import com.cmdgod.mc.voracious_scythes.gui.broomtable.BroomTableDescription;
 import com.cmdgod.mc.voracious_scythes.inventories.PersonalDiscPlayerInventory;
 import com.cmdgod.mc.voracious_scythes.items.PersonalDiscPlayer;
 import com.cmdgod.mc.voracious_scythes.items.PosableMannequin;
@@ -111,6 +114,9 @@ public class VoraciousScythes implements ModInitializer {
 
 	public static final ItemGroup MUSIC_DISC_ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(MOD_NAMESPACE, "music_discs"),() -> new ItemStack(MUSICLESS_DISC));
 	public static final ItemGroup BROOM_ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(MOD_NAMESPACE, "brooms"),() -> new ItemStack(BROOM_BASE));
+
+	public static BlockEntityType<BroomTableEntity> BROOM_TABLE_ENTITY;
+	public static ScreenHandlerType<BroomTableDescription> BROOM_TABLE_SCREEN_HANDLER_TYPE;
 
 	//public static BlockEntityType<PocketFarmEntity> POCKET_FARM_ENTITY;
 
@@ -187,6 +193,10 @@ public class VoraciousScythes implements ModInitializer {
 		ScreenHandlerType<PersonalDiscPlayerDescription> type = new ScreenHandlerType<>((syncId, inventory) -> new PersonalDiscPlayerDescription(syncId, inventory, new PersonalDiscPlayerInventory(new ItemStack(PERSONAL_DISC_PLAYER)), new PersonalDiscPlayerPropertyDelegate(new ItemStack(PERSONAL_DISC_PLAYER))));
 		PERSONAL_DISC_PLAYER_SCREEN_HANDLER_TYPE = Registry.register(Registry.SCREEN_HANDLER, new Identifier(MOD_NAMESPACE, "personal_disc_player"), type);
 
+		BroomTable BROOM_TABLE = new BroomTable();
+		ScreenHandlerType<BroomTableDescription> broomScreenType = new ScreenHandlerType<>((syncId, inventory) -> new BroomTableDescription(syncId, inventory, ScreenHandlerContext.EMPTY));
+		BROOM_TABLE_SCREEN_HANDLER_TYPE = Registry.register(Registry.SCREEN_HANDLER, new Identifier(MOD_NAMESPACE, "broom_table"), broomScreenType);
+		BROOM_TABLE_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, MOD_NAMESPACE + ":broom_table_entity", FabricBlockEntityTypeBuilder.create(BroomTableEntity::new, BROOM_TABLE).build(null) );
 		BROOM_BASE = new BroomBase();
 		BroomStick.registerMySticks();
 		BroomGem.registerMyGems();

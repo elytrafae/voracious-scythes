@@ -73,7 +73,8 @@ public class BroomGem extends Item {
         map.forEach((entityAttribute, entityAttributeModifier) -> {
             double value = entityAttributeModifier.getValue();
             double absValue = Math.abs(value);
-            double displayValue = (absValue == (int)absValue) ? (int)absValue : absValue;
+            double percentageProcessedValue = (entityAttributeModifier.getOperation() == Operation.MULTIPLY_BASE || entityAttributeModifier.getOperation() == Operation.MULTIPLY_TOTAL) ? absValue*100 : absValue;
+            double displayValue = (percentageProcessedValue == (int)percentageProcessedValue) ? (int)percentageProcessedValue : percentageProcessedValue;
             String attributeNameString = new TranslatableText(entityAttribute.getTranslationKey()).getString();
             String mainTransKey = "attribute.modifier." + (value < 0 ? "take" : "plus") + "." + entityAttributeModifier.getOperation().getId();
             tooltip.add(new TranslatableText(mainTransKey, displayValue, attributeNameString).setStyle(value < 0 ? BroomBase.NEGATIVE_STAT_STYLE : BroomBase.STAT_STYLE));

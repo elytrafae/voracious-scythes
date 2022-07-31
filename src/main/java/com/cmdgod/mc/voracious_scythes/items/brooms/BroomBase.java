@@ -47,13 +47,14 @@ import net.minecraft.world.World;
 
 public class BroomBase extends TrinketItem {
 
+    public static final Style FLAIR_STYLE = Style.EMPTY.withColor(Formatting.GRAY).withItalic(true);
     public static final Style STAT_TITLE_STYLE = Style.EMPTY.withColor(Formatting.GRAY);
     public static final Style STAT_STYLE = Style.EMPTY.withColor(Formatting.BLUE);
     public static final Style NEGATIVE_STAT_STYLE = Style.EMPTY.withColor(Formatting.RED);
 
-    private final String STICK_NBT_ADDRESS = "BroomStick";
-    private final String GEM_NBT_ADDRESS = "BroomGem";
-    private final String HEAD_NBT_ADDRESS = "BroomHead";
+    private static final String STICK_NBT_ADDRESS = "BroomStick";
+    private static final String GEM_NBT_ADDRESS = "BroomGem";
+    private static final String HEAD_NBT_ADDRESS = "BroomHead";
 
     public BroomBase() {
         super(new Item.Settings().group(VoraciousScythes.BROOM_ITEM_GROUP).maxCount(1));
@@ -82,7 +83,7 @@ public class BroomBase extends TrinketItem {
         return modifiers;
     }
 
-    public BroomStick getStick(ItemStack stack) {
+    public static BroomStick getStick(ItemStack stack) {
         String defaultValue = VoraciousScythes.MOD_NAMESPACE + ":wooden_broom_stick";
         Item item = getComponent(stack, STICK_NBT_ADDRESS, defaultValue);
         if (!(item instanceof BroomStick)) {
@@ -91,7 +92,7 @@ public class BroomBase extends TrinketItem {
         return (BroomStick)item;
     }
 
-    public BroomGem getGem(ItemStack stack) {
+    public static BroomGem getGem(ItemStack stack) {
         String defaultValue = VoraciousScythes.MOD_NAMESPACE + ":empty_broom_gem";
         Item item = getComponent(stack, GEM_NBT_ADDRESS, defaultValue);
         if (!(item instanceof BroomGem)) {
@@ -100,7 +101,7 @@ public class BroomBase extends TrinketItem {
         return (BroomGem)item;
     }
 
-    public BroomHead getHead(ItemStack stack) {
+    public static BroomHead getHead(ItemStack stack) {
         String defaultValue = VoraciousScythes.MOD_NAMESPACE + ":cleaning_broom_head";
         Item item = getComponent(stack, HEAD_NBT_ADDRESS, defaultValue);
         if (!(item instanceof BroomHead)) {
@@ -109,7 +110,7 @@ public class BroomBase extends TrinketItem {
         return (BroomHead)item;
     }
 
-    private Item getComponent(ItemStack stack, String nbtAddress, String defaultValue) {
+    private static Item getComponent(ItemStack stack, String nbtAddress, String defaultValue) {
         NbtCompound nbt = stack.getOrCreateNbt();
         if (!nbt.contains(nbtAddress)) {
             nbt.putString(nbtAddress, defaultValue);
@@ -121,19 +122,19 @@ public class BroomBase extends TrinketItem {
         return item;
     }
 
-    public void setStick(ItemStack stack, BroomStick stick) {
+    public static void setStick(ItemStack stack, BroomStick stick) {
         setComponent(stack, STICK_NBT_ADDRESS, stick);
     }
 
-    public void setGem(ItemStack stack, BroomGem gem) {
+    public static void setGem(ItemStack stack, BroomGem gem) {
         setComponent(stack, GEM_NBT_ADDRESS, gem);
     }
 
-    public void setHead(ItemStack stack, BroomHead head) {
+    public static void setHead(ItemStack stack, BroomHead head) {
         setComponent(stack, HEAD_NBT_ADDRESS, head);
     }
 
-    private void setComponent(ItemStack stack, String nbtAddress, Item item) {
+    private static void setComponent(ItemStack stack, String nbtAddress, Item item) {
         NbtCompound nbt = stack.getOrCreateNbt();
         Optional<RegistryKey<Item>> opt = Registry.ITEM.getKey(item);
         if (opt.isPresent()) {

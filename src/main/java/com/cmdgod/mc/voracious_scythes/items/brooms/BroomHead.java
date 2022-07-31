@@ -6,6 +6,7 @@ import com.cmdgod.mc.voracious_scythes.VoraciousScythes;
 import com.cmdgod.mc.voracious_scythes.items.ScytheBase;
 import com.cmdgod.mc.voracious_scythes.items.brooms.heads.BlinkingBroomHead;
 import com.cmdgod.mc.voracious_scythes.items.brooms.heads.BrewerBroomHead;
+import com.cmdgod.mc.voracious_scythes.items.brooms.heads.BruteBroomHead;
 import com.cmdgod.mc.voracious_scythes.items.brooms.heads.CleaningBroomHead;
 import com.cmdgod.mc.voracious_scythes.items.brooms.heads.GuardianBroomHead;
 import com.cmdgod.mc.voracious_scythes.items.brooms.heads.ApprenticeBroomHead;
@@ -38,6 +39,7 @@ public class BroomHead extends Item {
         BlazingBroomHead BLAZING_BROOM_HEAD = new BlazingBroomHead();
         ApprenticeBroomHead APPRENTICE_BROOM_HEAD = new ApprenticeBroomHead();
         GuardianBroomHead GUARDIAN_BROOM_HEAD = new GuardianBroomHead();
+        BruteBroomHead BRUTE_BROOM_HEAD = new BruteBroomHead();
     }
 
     @Override
@@ -45,6 +47,11 @@ public class BroomHead extends Item {
         if (ability != null) {
             tooltip.add(new TranslatableText("voracious_scythes.when_put_on_broom").setStyle(BroomBase.STAT_TITLE_STYLE));
             ScytheBase.addAbilityDescriptionToTooltip(tooltip, ability);
+        }
+        String translationKey = getTranslationKey() + ".desc";
+        TranslatableText flairText = new TranslatableText(translationKey);
+        if (!flairText.getString().equals(translationKey)) {
+            tooltip.add(flairText.setStyle(BroomBase.FLAIR_STYLE));
         }
         super.appendTooltip(stack, world, tooltip, context);
     }

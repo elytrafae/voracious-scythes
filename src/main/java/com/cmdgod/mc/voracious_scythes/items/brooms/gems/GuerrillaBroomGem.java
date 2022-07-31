@@ -28,7 +28,7 @@ public class GuerrillaBroomGem extends BroomGem {
         modifiers.put(EntityAttributes.GENERIC_MAX_HEALTH, new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_gem_max_health", -0.5, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
         modifiers.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_gem_armor", -5, EntityAttributeModifier.Operation.ADDITION));
         modifiers.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_gem_attack_damage", 6, EntityAttributeModifier.Operation.ADDITION));
-        modifiers.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_gem_attack_speed", 1.5, EntityAttributeModifier.Operation.ADDITION));
+        modifiers.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_gem_attack_speed", 1, EntityAttributeModifier.Operation.ADDITION));
         return modifiers;
     }
 

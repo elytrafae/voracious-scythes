@@ -95,7 +95,7 @@ public class BroomPotionAbility extends ScytheAbilityBase {
         ArrayList<StatusEffect> chosenEffects = new ArrayList<StatusEffect>();
         for (int i=1; i <= EFFECT_COUNT; i++) {
             StatusEffect effect = effectsCopy.get(rand.nextInt(effectsCopy.size()));
-            player.sendMessage(Text.of("Chosen effect #" + i + " : " + effect.getName().getString()), false);
+            //player.sendMessage(Text.of("Chosen effect #" + i + " : " + effect.getName().getString()), false);
             chosenEffects.add(effect);
             effectsCopy.remove(effect);
         }

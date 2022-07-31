@@ -87,6 +87,7 @@
     "key.voracious_scythes.broom_ability" : "Use Broom Ability",
 
     "item.voracious_scythes.broom": "Broom",
+    "block.voracious_scythes.broom_table": "Broom Table",
     "voracious_scythes.when_put_on_broom": "When added to a broom:",
 
     "item.voracious_scythes.wooden_broom_stick": "Wooden Broom Stick",
@@ -141,5 +142,8 @@
     "item.voracious_scythes.apprentice_broom_head": "Apprentice's Broom Head",
     "item.voracious_scythes.apprentice_broom_head.prefix": "Floating",
     "item.voracious_scythes.guardian_broom_head": "Guardian's Broom Head",
-    "item.voracious_scythes.guardian_broom_head.prefix": "Guardian's"
+    "item.voracious_scythes.guardian_broom_head.prefix": "Guardian's",
+    "item.voracious_scythes.brute_broom_head": "Brute's . . . Broom Head?",
+    "item.voracious_scythes.brute_broom_head.prefix": "Brutish",
+    "item.voracious_scythes.brute_broom_head.desc": "Is that an entire ham?"
 }
