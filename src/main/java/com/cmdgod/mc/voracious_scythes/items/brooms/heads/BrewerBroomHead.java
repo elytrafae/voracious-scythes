@@ -10,7 +10,7 @@ import net.minecraft.util.registry.Registry;
 public class BrewerBroomHead extends BroomHead {
     
     public BrewerBroomHead() {
-        super(new BroomPotionAbility());
+        super(new Identifier(VoraciousScythes.MOD_NAMESPACE, "broom_potion_ability"));
         Registry.register(Registry.ITEM, new Identifier(VoraciousScythes.MOD_NAMESPACE, "brewer_broom_head"), this);
     }
 

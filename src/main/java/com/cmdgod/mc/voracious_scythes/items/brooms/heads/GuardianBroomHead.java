@@ -10,7 +10,7 @@ import net.minecraft.util.registry.Registry;
 public class GuardianBroomHead extends BroomHead {
     
     public GuardianBroomHead() {
-        super(new BroomBlockAbility());
+        super(new Identifier(VoraciousScythes.MOD_NAMESPACE, "broom_block_ability"));
         Registry.register(Registry.ITEM, new Identifier(VoraciousScythes.MOD_NAMESPACE, "guardian_broom_head"), this);
     }
 

@@ -10,9 +10,11 @@ import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.sound.SoundInstance.AttenuationType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 
@@ -33,6 +35,7 @@ public class BroomFlightAbility extends ScytheAbilityBase {
 
     PositionedSoundInstance flyingSoundInstance;
     PositionedSoundInstance liftoffSoundInstance;
+    //ParticleEffect particleEffect = Registry.PARTICLE_TYPE.get(new Identifier("minecraft", "end_rod"));
 
     @Override
     public void preFireTick(PublicAbilityDurationEntry entry, int tick, PlayerEntity player) {
@@ -54,6 +57,7 @@ public class BroomFlightAbility extends ScytheAbilityBase {
         Vec3d rotation = player.getRotationVector().normalize();
         player.fallDistance = 0;
         player.setVelocity(rotation.multiply(1.2));
+        //player.getWorld().addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
     }
 
     @Override

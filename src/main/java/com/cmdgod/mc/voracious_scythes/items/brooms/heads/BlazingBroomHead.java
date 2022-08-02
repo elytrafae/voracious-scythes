@@ -10,7 +10,7 @@ import net.minecraft.util.registry.Registry;
 public class BlazingBroomHead extends BroomHead {
     
     public BlazingBroomHead() {
-        super(new BroomFireballAbility());
+        super(new Identifier(VoraciousScythes.MOD_NAMESPACE, "broom_fireball_ability"));
         Registry.register(Registry.ITEM, new Identifier(VoraciousScythes.MOD_NAMESPACE, "blazing_broom_head"), this);
     }
 

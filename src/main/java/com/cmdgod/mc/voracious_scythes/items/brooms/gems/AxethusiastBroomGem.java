@@ -27,7 +27,7 @@ public class AxethusiastBroomGem extends BroomGem {
         // INSERT STUFF HERE IN OTHER CLASSES!
         //modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_gem_armor", -0.05, EntityAttributeModifier.Operation.MULTIPLY_BASE));
         modifiers.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_gem_attack_damage", 8, EntityAttributeModifier.Operation.ADDITION));
-        modifiers.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_gem_attack_speed", -1, EntityAttributeModifier.Operation.ADDITION));
+        modifiers.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(uuid, VoraciousScythes.MOD_NAMESPACE + ":broom_gem_attack_speed", -0.30, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
         return modifiers;
     }
 

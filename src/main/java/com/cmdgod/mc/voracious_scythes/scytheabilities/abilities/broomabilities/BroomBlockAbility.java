@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 public class BroomBlockAbility extends ScytheAbilityBase {
 
-    public static final int RESISTANCE_DURATION = 40;
+    public static final int RESISTANCE_DURATION = 400;
     public static final int REGENERATION_INTERVAL = 40;
 
     public BroomBlockAbility() {
@@ -28,7 +28,7 @@ public class BroomBlockAbility extends ScytheAbilityBase {
         this.postFireDuration = 0;
 
         desc.add("Passive: Heal 1 HP every " + (REGENERATION_INTERVAL/20) + " seconds.");
-        desc.add("Activate to gain Resistance V for " + (RESISTANCE_DURATION/20) + " seconds.");
+        desc.add("Activate to gain Resistance III for " + (RESISTANCE_DURATION/20) + " seconds.");
         this.changeDescription(desc);
     }
 
@@ -52,7 +52,7 @@ public class BroomBlockAbility extends ScytheAbilityBase {
 
     @Override
     public void activeTick(PublicAbilityDurationEntry entry, int tick, PlayerEntity player) {
-        StatusEffectInstance instance = new StatusEffectInstance(StatusEffects.RESISTANCE, RESISTANCE_DURATION, 4, true, true, true);
+        StatusEffectInstance instance = new StatusEffectInstance(StatusEffects.RESISTANCE, RESISTANCE_DURATION, 2, true, true, true);
         player.addStatusEffect(instance);
     }
 

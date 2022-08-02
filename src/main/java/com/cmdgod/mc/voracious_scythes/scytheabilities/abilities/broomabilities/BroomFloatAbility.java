@@ -50,7 +50,7 @@ public class BroomFloatAbility extends ScytheAbilityBase {
     @Override
     public void activeTick(PublicAbilityDurationEntry entry, int tick, PlayerEntity player) {
         Vec3d velocity = player.getVelocity();
-        Vec3d newVelocity = new Vec3d(velocity.x, 2, velocity.z);
+        Vec3d newVelocity = new Vec3d(velocity.x, 2.5, velocity.z);
         player.fallDistance = 0;
         player.setVelocity(newVelocity);
     }

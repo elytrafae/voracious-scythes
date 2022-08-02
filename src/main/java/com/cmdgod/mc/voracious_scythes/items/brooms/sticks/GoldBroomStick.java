@@ -10,7 +10,7 @@ import net.minecraft.util.registry.Registry;
 public class GoldBroomStick extends BroomStick {
 
     public GoldBroomStick() {
-        super(4);
+        super(2);
         Registry.register(Registry.ITEM, new Identifier(VoraciousScythes.MOD_NAMESPACE, "gold_broom_stick"), this);
     }
     

@@ -10,7 +10,7 @@ import net.minecraft.util.registry.Registry;
 public class StoneBroomStick extends BroomStick {
 
     public StoneBroomStick() {
-        super(5);
+        super(3);
         Registry.register(Registry.ITEM, new Identifier(VoraciousScythes.MOD_NAMESPACE, "stone_broom_stick"), this);
     }
     

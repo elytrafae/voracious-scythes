@@ -10,7 +10,7 @@ import net.minecraft.util.registry.Registry;
 public class WitchBroomHead extends BroomHead {
     
     public WitchBroomHead() {
-        super(new BroomFlightAbility());
+        super(new Identifier(VoraciousScythes.MOD_NAMESPACE, "broom_flight_ability"));
         Registry.register(Registry.ITEM, new Identifier(VoraciousScythes.MOD_NAMESPACE, "witch_broom_head"), this);
     }
 

@@ -9,7 +9,10 @@ import com.cmdgod.mc.voracious_scythes.items.brooms.heads.BrewerBroomHead;
 import com.cmdgod.mc.voracious_scythes.items.brooms.heads.BruteBroomHead;
 import com.cmdgod.mc.voracious_scythes.items.brooms.heads.CleaningBroomHead;
 import com.cmdgod.mc.voracious_scythes.items.brooms.heads.GuardianBroomHead;
+import com.cmdgod.mc.voracious_scythes.items.brooms.heads.StarBroomHead;
+import com.cmdgod.mc.voracious_scythes.items.brooms.heads.WaterWitchBroomHead;
 import com.cmdgod.mc.voracious_scythes.items.brooms.heads.ApprenticeBroomHead;
+import com.cmdgod.mc.voracious_scythes.items.brooms.heads.BigShotBroomHead;
 import com.cmdgod.mc.voracious_scythes.items.brooms.heads.BlazingBroomHead;
 import com.cmdgod.mc.voracious_scythes.items.brooms.heads.WitchBroomHead;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.ScytheAbilityBase;
@@ -20,15 +23,18 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public class BroomHead extends Item {
     
     ScytheAbilityBase ability = null;
 
-    public BroomHead(ScytheAbilityBase ability) {
+    public BroomHead(Identifier abilityId) {
         super(new Item.Settings().group(VoraciousScythes.BROOM_ITEM_GROUP).maxCount(1));
-        this.ability = ability;
+        if (abilityId != null) {
+            this.ability = ScytheAbilityBase.ABILITY_REGISTRY.get(abilityId);
+        }
     }
 
     public static void registerMyHeads() {
@@ -40,6 +46,9 @@ public class BroomHead extends Item {
         ApprenticeBroomHead APPRENTICE_BROOM_HEAD = new ApprenticeBroomHead();
         GuardianBroomHead GUARDIAN_BROOM_HEAD = new GuardianBroomHead();
         BruteBroomHead BRUTE_BROOM_HEAD = new BruteBroomHead();
+        StarBroomHead STAR_SPREADER_BROOM_HEAD = new StarBroomHead();
+        BigShotBroomHead SPAMTON_SILLY_STRINGS = new BigShotBroomHead();
+        WaterWitchBroomHead WATER_WITCH_BROOM_HEAD = new WaterWitchBroomHead();
     }
 
     @Override

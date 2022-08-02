@@ -26,7 +26,7 @@ public class BroomBruteAbility extends ScytheAbilityBase {
     public static final int STRENGTH_DURATION = 100;
 
     public BroomBruteAbility() {
-        super("Brutish Strength", 200, new ArrayList<String>(), new Identifier(VoraciousScythes.MOD_NAMESPACE, "broom_float_ability"));
+        super("Brutish Strength", 200, new ArrayList<String>(), new Identifier(VoraciousScythes.MOD_NAMESPACE, "broom_brute_ability"));
         ArrayList<String> desc = new ArrayList<String>();
 
         this.duration = 0; // Instant

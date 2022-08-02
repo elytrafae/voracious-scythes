@@ -127,6 +127,10 @@
     "item.voracious_scythes.guerrilla_broom_gem.prefix": "Guerrilla",
     "item.voracious_scythes.axethusiast_broom_gem": "Axethusiast Broom Gem",
     "item.voracious_scythes.axethusiast_broom_gem.prefix": "Axethusiast",
+    "item.voracious_scythes.magical_broom_gem": "Magical Broom Gem",
+    "item.voracious_scythes.magical_broom_gem.prefix": "Magical",
+    "item.voracious_scythes.rough_rider_broom_gem": "Rough Rider Broom Gem",
+    "item.voracious_scythes.rough_rider_broom_gem.prefix": "Rough",
     
 
     "item.voracious_scythes.cleaning_broom_head": "Cleaning Broom Head",
@@ -145,5 +149,17 @@
     "item.voracious_scythes.guardian_broom_head.prefix": "Guardian's",
     "item.voracious_scythes.brute_broom_head": "Brute's . . . Broom Head?",
     "item.voracious_scythes.brute_broom_head.prefix": "Brutish",
-    "item.voracious_scythes.brute_broom_head.desc": "Is that an entire ham?"
+    "item.voracious_scythes.brute_broom_head.desc": "Is that an entire ham?",
+    "item.voracious_scythes.star_spreader_broom_head": "Star Spreader Broom Head",
+    "item.voracious_scythes.star_spreader_broom_head.prefix": "Star Spreader",
+    "item.voracious_scythes.big_shot_broom_head": "Spamton's [silly strings]",
+    "item.voracious_scythes.big_shot_broom_head.prefix": "[BIG SHOT]",
+    "item.voracious_scythes.big_shot_broom_head.desc": "Now's your chance to be a BIG SHOT!",
+    "item.voracious_scythes.big_shot_broom_head.light_fail": "The [light]! It [burns]!1! me.",
+    "item.voracious_scythes.water_witch_broom_head": "Water Witch's Broom Head",
+    "item.voracious_scythes.water_witch_broom_head.prefix": "Wet",
+
+
+    "attribute.name.voracious_scythes.cooldown_reduction" : "Cooldown Reduction",
+    "attribute.name.voracious_scythes.generic_damage_reduction" : "Damage Reduction"
 }

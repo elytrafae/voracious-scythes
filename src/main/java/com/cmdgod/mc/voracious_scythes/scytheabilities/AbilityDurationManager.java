@@ -103,7 +103,7 @@ public class AbilityDurationManager {
         int minStartTick = tick;
         if (!this.entries.isEmpty()) {
             Iterator<Entry> iterator = this.entries.iterator();
-            minStartTick = getSmallestStartTick(iterator);
+            minStartTick = getSmallestStartTick(this.entries.iterator()); // Needs a different iterator.
             while (iterator.hasNext()) {
                 Entry e = iterator.next();
                 String itemId = Registry.ITEM.getId(e.item).toString();

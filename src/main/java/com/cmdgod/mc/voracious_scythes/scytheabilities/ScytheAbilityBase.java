@@ -90,4 +90,8 @@ public class ScytheAbilityBase {
         }
     }
 
+    public Text getDisplayName() {
+        return this.name;
+    }
+
 }

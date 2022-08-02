@@ -10,7 +10,7 @@ import net.minecraft.util.registry.Registry;
 public class BlinkingBroomHead extends BroomHead {
     
     public BlinkingBroomHead() {
-        super(new BroomTeleportAbility());
+        super(new Identifier(VoraciousScythes.MOD_NAMESPACE, "broom_blink_ability"));
         Registry.register(Registry.ITEM, new Identifier(VoraciousScythes.MOD_NAMESPACE, "blinking_broom_head"), this);
     }
 

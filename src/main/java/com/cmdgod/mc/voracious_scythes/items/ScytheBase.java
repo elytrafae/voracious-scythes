@@ -159,7 +159,7 @@ public class ScytheBase extends SwordItem {
             player.sendMessage(Text.of("This ability is already in use!").getWithStyle(Style.EMPTY.withColor(Formatting.RED)).get(0), true);
             return new TypedActionResult<ItemStack>(ActionResult.PASS, player.getStackInHand(hand));
         }
-        cdManager.useChargeFor(ability);
+        cdManager.useChargeFor(ability, player);
         durationManager.startAbilityDuration(ability, player, itemStack);
             // ability.activeAbility(world, player, hand, this, itemStack);
         return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, player.getStackInHand(hand));

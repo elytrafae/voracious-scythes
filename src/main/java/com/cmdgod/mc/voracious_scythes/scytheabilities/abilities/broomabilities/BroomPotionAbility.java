@@ -28,7 +28,6 @@ public class BroomPotionAbility extends ScytheAbilityBase {
     public static final int EFFECT_COUNT = 2;
 
     public static List<StatusEffect> POSSIBLE_EFFECTS = List.of(
-            StatusEffects.GLOWING, 
             StatusEffects.BLINDNESS, 
             StatusEffects.MINING_FATIGUE,
             StatusEffects.SLOWNESS, 
@@ -48,8 +47,8 @@ public class BroomPotionAbility extends ScytheAbilityBase {
         for (StatusEffect effect : effects) {
             NbtCompound nbtEffect = new NbtCompound();
             nbtEffect.putInt("Id", StatusEffect.getRawId(effect));
-            nbtEffect.putInt("Amplifier", 0);
-            nbtEffect.putInt("Duration", effect.isInstant() ? 1 : 1200);
+            nbtEffect.putInt("Amplifier", 1);
+            nbtEffect.putInt("Duration", effect.isInstant() ? 1 : 600);
             effectsList.add(nbtEffect);
             color += effect.getColor();
         }

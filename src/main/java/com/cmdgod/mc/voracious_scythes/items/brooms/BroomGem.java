@@ -13,6 +13,8 @@ import com.cmdgod.mc.voracious_scythes.items.brooms.gems.GuerrillaBroomGem;
 import com.cmdgod.mc.voracious_scythes.items.brooms.gems.HastyBroomGem;
 import com.cmdgod.mc.voracious_scythes.items.brooms.gems.HealthyBroomGem;
 import com.cmdgod.mc.voracious_scythes.items.brooms.gems.HeavyArmorBroomGem;
+import com.cmdgod.mc.voracious_scythes.items.brooms.gems.MagicalBroomGem;
+import com.cmdgod.mc.voracious_scythes.items.brooms.gems.RoughRiderBroomGem;
 import com.cmdgod.mc.voracious_scythes.items.brooms.gems.RubberBroomGem;
 import com.cmdgod.mc.voracious_scythes.items.brooms.gems.SolidBroomGem;
 import com.cmdgod.mc.voracious_scythes.items.brooms.gems.SpeedBroomGem;
@@ -60,6 +62,8 @@ public class BroomGem extends Item {
         HeavyArmorBroomGem HEAVILY_ARMORED_BROOM_GEM = new HeavyArmorBroomGem();
         GuerrillaBroomGem GUERRILLA_BROOM_GEM = new GuerrillaBroomGem();
         AxethusiastBroomGem AXETHUSIAST_BROOM_GEM = new AxethusiastBroomGem();
+        MagicalBroomGem MAGICAL_BROOM_GEM = new MagicalBroomGem();
+        RoughRiderBroomGem ROUGH_RIDER_BROOM_GEM = new RoughRiderBroomGem();
     }
 
     @Override

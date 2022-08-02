@@ -1,5 +1,6 @@
 package com.cmdgod.mc.voracious_scythes.mixins;
 
+import com.cmdgod.mc.voracious_scythes.CustomEntityAttributes;
 import com.cmdgod.mc.voracious_scythes.VoraciousScythes;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerPropertyDelegate;
 import com.cmdgod.mc.voracious_scythes.inventories.PersonalDiscPlayerInventory;
@@ -23,8 +24,11 @@ import java.util.Optional;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -35,6 +39,8 @@ import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -84,6 +90,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
             nbtDTO.putInt("charges", dto.charges);
             cdList.add(nbtDTO);
         }
+        //((PlayerEntity)((Object)this)).sendMessage(Text.of("tick: " + nbtSave.getInt("tick") + " || entriesLength: " + save.dtos.size()), false);
         nbtSave.put("entries", cdList);
         nbt.put("CMDGod_AbilityCooldown", nbtSave);
     }
@@ -118,7 +125,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
         cdManager.clearEverything();
         NbtCompound nbtSave = nbt.getCompound("CMDGod_AbilityCooldown");
 		cdManager.setTick(nbtSave.getInt("tick"));
-        NbtList list = nbtSave.getList("entries", 0);
+        NbtList list = nbtSave.getList("entries", 10);
         for (int i=0; i < list.size(); i++) {
             NbtCompound nbtDTO = list.getCompound(i);
             cdManager.restoreSaveData(nbtDTO.getString("id"), nbtDTO.getInt("startTick"), nbtDTO.getInt("endTick"), nbtDTO.getInt("charges"));
@@ -129,7 +136,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
         abilityDurationManager.clearEverything();
         NbtCompound nbtSave = nbt.getCompound("CMDGod_AbilityDuration");
 		abilityDurationManager.setTick(nbtSave.getInt("tick"));
-        NbtList list = nbtSave.getList("entries", 0);
+        NbtList list = nbtSave.getList("entries", 10);
         for (int i=0; i < list.size(); i++) {
             NbtCompound nbtDTO = list.getCompound(i);
             abilityDurationManager.restoreSaveData(nbtDTO.getString("id"), nbtDTO.getInt("preStartTick"), nbtDTO.getInt("startTick"), nbtDTO.getInt("endTick"), nbtDTO.getInt("postEndTick"),nbtDTO.getString("scytheId"));
@@ -168,6 +175,21 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
 
     private void clientTick(PlayerMixin playerExt, PlayerEntity player) {
         personalJukeboxTick(playerExt, player);
+    }
+
+    @Inject(method = "createPlayerAttributes", at = @At("RETURN"))
+	private static void createPlayerAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> info) {
+        info.getReturnValue().add(CustomEntityAttributes.COOLDOWN_REDUCTION).add(CustomEntityAttributes.GENERIC_DAMAGE_REDUCTION);
+        //info.setReturnValue(builder);
+	}
+
+    @ModifyVariable(method = "damage", at = @At(value = "HEAD"), ordinal = 0)
+    private float modifyDamage(float amount) {
+        PlayerEntity player = (PlayerEntity)((Object)this);
+        float newAmount = (float)((amount*2) - (amount*player.getAttributeInstance(CustomEntityAttributes.GENERIC_DAMAGE_REDUCTION).getValue()));
+        
+
+        return newAmount;
     }
 
     PositionedSoundInstance personalSoundInstance;

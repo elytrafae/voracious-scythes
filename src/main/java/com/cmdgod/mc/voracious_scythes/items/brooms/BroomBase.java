@@ -195,7 +195,15 @@ public class BroomBase extends TrinketItem {
         PlayerExtension playerExt = (PlayerExtension)player;
         AbilityCooldownManager cdManager = playerExt.getCdManager();
         AbilityDurationManager durationManager = playerExt.getAbilityDurationManager();
-        cdManager.useChargeFor(head.ability);
+        if (!cdManager.canUse(head.ability)) {
+            player.sendMessage(Text.of("This ability is on cooldown!").getWithStyle(Style.EMPTY.withColor(Formatting.RED)).get(0), true);
+            return;
+        }
+        if (!head.ability.simultaneousChargesAllowed && durationManager.doesAbilityAlreadyHaveEntry(head.ability)) {
+            player.sendMessage(Text.of("This ability is already in use!").getWithStyle(Style.EMPTY.withColor(Formatting.RED)).get(0), true);
+            return;
+        }
+        cdManager.useChargeFor(head.ability, player);
         durationManager.startAbilityDuration(head.ability, player, stack);
     }
 

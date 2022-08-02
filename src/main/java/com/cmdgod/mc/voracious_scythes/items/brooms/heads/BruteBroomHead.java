@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 public class BruteBroomHead extends BroomHead {
     
     public BruteBroomHead() {
-        super(new BroomBruteAbility());
+        super(new Identifier(VoraciousScythes.MOD_NAMESPACE, "broom_brute_ability"));
         Registry.register(Registry.ITEM, new Identifier(VoraciousScythes.MOD_NAMESPACE, "brute_broom_head"), this);
     }
 

@@ -10,7 +10,7 @@ import net.minecraft.util.registry.Registry;
 public class ApprenticeBroomHead extends BroomHead {
     
     public ApprenticeBroomHead() {
-        super(new BroomFloatAbility());
+        super(new Identifier(VoraciousScythes.MOD_NAMESPACE, "broom_float_ability"));
         Registry.register(Registry.ITEM, new Identifier(VoraciousScythes.MOD_NAMESPACE, "apprentice_broom_head"), this);
     }
 

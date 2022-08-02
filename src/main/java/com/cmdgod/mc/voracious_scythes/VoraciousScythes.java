@@ -15,6 +15,7 @@ import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.mob.BlazeEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,9 +37,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.Rarity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-import net.minecraft.screen.PropertyDelegate;
 
 import com.cmdgod.mc.voracious_scythes.blockentities.BroomTableEntity;
 import com.cmdgod.mc.voracious_scythes.blockentities.PocketFarmEntity;
@@ -48,12 +49,16 @@ import com.cmdgod.mc.voracious_scythes.blocks.PocketFarm;
 import com.cmdgod.mc.voracious_scythes.blocks.ScythingTable;
 import com.cmdgod.mc.voracious_scythes.blocks.PocketFarms.SugarCanePocketFarm;
 import com.cmdgod.mc.voracious_scythes.blocks.PocketFarms.WoolPocketFarm;
+import com.cmdgod.mc.voracious_scythes.entities.projectiles.BigShotBulletEntity;
+import com.cmdgod.mc.voracious_scythes.entities.projectiles.StarBulletEntity;
+import com.cmdgod.mc.voracious_scythes.entities.projectiles.WaterBombEntity;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerDescription;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerNamedScreenHandlerFactory;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerPropertyDelegate;
 import com.cmdgod.mc.voracious_scythes.gui.PersonalDiscPlayerScreen;
 import com.cmdgod.mc.voracious_scythes.gui.ScythingTableGuiDescription;
 import com.cmdgod.mc.voracious_scythes.gui.broomtable.BroomTableDescription;
+import com.cmdgod.mc.voracious_scythes.huds.CooldownHUD;
 import com.cmdgod.mc.voracious_scythes.inventories.PersonalDiscPlayerInventory;
 import com.cmdgod.mc.voracious_scythes.items.PersonalDiscPlayer;
 import com.cmdgod.mc.voracious_scythes.items.PosableMannequin;
@@ -65,18 +70,34 @@ import com.cmdgod.mc.voracious_scythes.items.brooms.BroomStick;
 import com.cmdgod.mc.voracious_scythes.items.musicdiscs.DoomDiscFragment;
 import com.cmdgod.mc.voracious_scythes.items.musicdiscs.ModdedMusicDisc;
 import com.cmdgod.mc.voracious_scythes.items.musicdiscs.MusiclessDisc;
+import com.cmdgod.mc.voracious_scythes.items.projectileitems.BigShotBulletItem;
+import com.cmdgod.mc.voracious_scythes.items.projectileitems.StarBulletItem;
 import com.cmdgod.mc.voracious_scythes.items.scythes.FlintScythe;
 import com.cmdgod.mc.voracious_scythes.items.scythes.StoneScythe;
 import com.cmdgod.mc.voracious_scythes.items.scythes.WoodenScythe;
+import com.cmdgod.mc.voracious_scythes.mixinextensions.PlayerExtension;
+import com.cmdgod.mc.voracious_scythes.scytheabilities.AbilityCooldownManager;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.ScytheAbilityBase;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.HeavyHit;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.TornadoFrenzy;
+import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.broomabilities.BroomBigShotAbility;
+import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.broomabilities.BroomBlockAbility;
+import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.broomabilities.BroomBruteAbility;
+import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.broomabilities.BroomFireballAbility;
+import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.broomabilities.BroomFlightAbility;
+import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.broomabilities.BroomFloatAbility;
+import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.broomabilities.BroomPotionAbility;
+import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.broomabilities.BroomStarAbility;
+import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.broomabilities.BroomTeleportAbility;
+import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.broomabilities.BroomWaterThrowAbility;
 import com.cmdgod.mc.voracious_scythes.settingsclasses.PocketFarmSubtype;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
+import io.github.cottonmc.cotton.gui.client.CottonHud;
+import io.github.cottonmc.cotton.gui.widget.WLabel;
 
 import java.util.List;
 import java.util.Optional;
@@ -111,6 +132,7 @@ public class VoraciousScythes implements ModInitializer {
 
 	public static final Identifier UPDATE_TRACK_NUMBER_ID = new Identifier(MOD_NAMESPACE, "network_update_track");
 	public static final Identifier TRIGGER_BROOM_ABILITY_ID = new Identifier(MOD_NAMESPACE, "network_use_broom_ability");
+	public static final Identifier UPDATE_COOLDOWNS_ID = new Identifier(MOD_NAMESPACE, "network_update_cooldowns");
 
 	public static final ItemGroup MUSIC_DISC_ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(MOD_NAMESPACE, "music_discs"),() -> new ItemStack(MUSICLESS_DISC));
 	public static final ItemGroup BROOM_ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(MOD_NAMESPACE, "brooms"),() -> new ItemStack(BROOM_BASE));
@@ -127,11 +149,59 @@ public class VoraciousScythes implements ModInitializer {
 	public static final PocketFarm SUGARCANE_FARM = new SugarCanePocketFarm();
 	public static final PocketFarm WOOL_FARM = new WoolPocketFarm();
 
+	public static StarBulletItem YELLOW_STAR_BULLET_ITEM = new StarBulletItem("yellow");
+	public static StarBulletItem RED_STAR_BULLET_ITEM = new StarBulletItem("red");
+	public static BigShotBulletItem BIG_SHOT_BULLET_ITEM = new BigShotBulletItem();
+
+	public static final EntityType<StarBulletEntity> StarBulletEntityType = Registry.register(
+		Registry.ENTITY_TYPE,
+		new Identifier(MOD_NAMESPACE, "star_bullet_entity"),
+		FabricEntityTypeBuilder.<StarBulletEntity>create(SpawnGroup.MISC, StarBulletEntity::new)
+				.dimensions(EntityDimensions.fixed(0.25F, 0.25F)) // dimensions in Minecraft units of the projectile
+				.trackRangeBlocks(10).trackedUpdateRate(10) // necessary for all thrown projectiles (as it prevents it from breaking, lol)
+				.build() // VERY IMPORTANT DONT DELETE FOR THE LOVE OF GOD PSLSSSSSS
+	);
+
+	public static final EntityType<BigShotBulletEntity> BigShotEntityType = Registry.register(
+		Registry.ENTITY_TYPE,
+		new Identifier(MOD_NAMESPACE, "big_shot_bullet_entity"),
+		FabricEntityTypeBuilder.<BigShotBulletEntity>create(SpawnGroup.MISC, BigShotBulletEntity::new)
+				.dimensions(EntityDimensions.fixed(1F, 1F)) // dimensions in Minecraft units of the projectile
+				.trackRangeBlocks(30).trackedUpdateRate(10) // necessary for all thrown projectiles (as it prevents it from breaking, lol)
+				.build() // VERY IMPORTANT DONT DELETE FOR THE LOVE OF GOD PSLSSSSSS
+	);
+
+	public static final EntityType<WaterBombEntity> WaterBombEntityType = Registry.register(
+		Registry.ENTITY_TYPE,
+		new Identifier(MOD_NAMESPACE, "water_bomb_entity"),
+		FabricEntityTypeBuilder.<WaterBombEntity>create(SpawnGroup.MISC, WaterBombEntity::new)
+				.dimensions(EntityDimensions.fixed(0.25F, 0.25F)) // dimensions in Minecraft units of the projectile
+				.trackRangeBlocks(10).trackedUpdateRate(10) // necessary for all thrown projectiles (as it prevents it from breaking, lol)
+				.build() // VERY IMPORTANT DONT DELETE FOR THE LOVE OF GOD PSLSSSSSS
+	);
+	
+	public static final Identifier ENTITY_SPAWN_PACKET_ID = new Identifier(MOD_NAMESPACE, "spawn_packet");
+
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
+
+		CooldownHUD.initialize();
+
+		ScytheAbilityBase.registerAbility(new HeavyHit());
+		ScytheAbilityBase.registerAbility(new TornadoFrenzy());
+		ScytheAbilityBase.registerAbility(new BroomBlockAbility());
+		ScytheAbilityBase.registerAbility(new BroomBruteAbility());
+		ScytheAbilityBase.registerAbility(new BroomFireballAbility());
+		ScytheAbilityBase.registerAbility(new BroomFlightAbility());
+		ScytheAbilityBase.registerAbility(new BroomFloatAbility());
+		ScytheAbilityBase.registerAbility(new BroomPotionAbility());
+		ScytheAbilityBase.registerAbility(new BroomTeleportAbility());
+		ScytheAbilityBase.registerAbility(new BroomStarAbility());
+		ScytheAbilityBase.registerAbility(new BroomBigShotAbility());
+		ScytheAbilityBase.registerAbility(new BroomWaterThrowAbility());
 
 		Registry.register(Registry.BLOCK, new Identifier(MOD_NAMESPACE, "scything_table"), SCYTHING_TABLE);
         Registry.register(Registry.ITEM, new Identifier(MOD_NAMESPACE, "scything_table"), new BlockItem(SCYTHING_TABLE, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
@@ -206,9 +276,6 @@ public class VoraciousScythes implements ModInitializer {
 		WOOL_FARM.selfRegister();
 
 		POCKET_FARM_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(VoraciousScythes.MOD_NAMESPACE, "pocket_farm_entity"), FabricBlockEntityTypeBuilder.create(PocketFarmEntity::new, SUGARCANE_FARM, WOOL_FARM).build(null));
-
-		ScytheAbilityBase.registerAbility(new HeavyHit());
-		ScytheAbilityBase.registerAbility(new TornadoFrenzy());
 
 		//FabricDefaultAttributeRegistry.register(MASTER_SPARK_LASER, MasterSparkLaserEntity.createMobAttributes());
 
@@ -305,6 +372,26 @@ public class VoraciousScythes implements ModInitializer {
         });
 		*/
 
+		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+            dispatcher.register(CommandManager.literal("resetcooldowns").executes(context -> { 
+				ServerCommandSource source = context.getSource();
+				if (source.getPlayer() == null) {
+					source.sendError(Text.of("The command source is not a player!"));
+					return 0;
+				}
+				PlayerEntity player = source.getPlayer();
+				if (!player.isCreativeLevelTwoOp()) {
+					source.sendError(Text.of("Insuffisient Permissions!"));
+					return 0;
+				}
+				PlayerExtension playerExt = (PlayerExtension)player;
+				AbilityCooldownManager cdManager = playerExt.getCdManager();
+				cdManager.clearEverything();
+				player.sendMessage(Text.of("Cooldowns Reset!"), false);
+				return 1;
+			}));
+        });
+
 		ServerPlayNetworking.registerGlobalReceiver(VoraciousScythes.UPDATE_TRACK_NUMBER_ID, (server, serverPlayer, handler, buf, responseSender) -> {
 			int slot = buf.readInt();
 			int trackNumber = buf.readInt();
@@ -359,6 +446,12 @@ public class VoraciousScythes implements ModInitializer {
 
 	public static String returnServerOrClientString(World world) {
 		return world.isClient ? "CLIENT" : "SERVER";
+	}
+
+	public static boolean isInDarkCondition(LivingEntity entity) {
+		World world = entity.getEntityWorld();
+		BlockPos blockPos = new BlockPos(entity.getEyePos());
+		return world.getLightLevel(blockPos) < 6;
 	}
 
 }

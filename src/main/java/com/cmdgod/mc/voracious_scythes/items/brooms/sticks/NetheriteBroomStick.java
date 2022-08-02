@@ -10,7 +10,7 @@ import net.minecraft.util.registry.Registry;
 public class NetheriteBroomStick extends BroomStick {
 
     public NetheriteBroomStick() {
-        super(8);
+        super(4);
         Registry.register(Registry.ITEM, new Identifier(VoraciousScythes.MOD_NAMESPACE, "netherite_broom_stick"), this);
     }
     
