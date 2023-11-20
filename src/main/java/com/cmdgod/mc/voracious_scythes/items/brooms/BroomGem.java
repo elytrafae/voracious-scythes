@@ -34,7 +34,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.world.World;
 
 public class BroomGem extends Item {
@@ -73,15 +72,15 @@ public class BroomGem extends Item {
         if (map.isEmpty()) {
             return;
         }
-        tooltip.add(new TranslatableText("voracious_scythes.when_put_on_broom").setStyle(BroomBase.STAT_TITLE_STYLE));
+        tooltip.add(Text.translatable("voracious_scythes.when_put_on_broom").setStyle(BroomBase.STAT_TITLE_STYLE));
         map.forEach((entityAttribute, entityAttributeModifier) -> {
             double value = entityAttributeModifier.getValue();
             double absValue = Math.abs(value);
             double percentageProcessedValue = (entityAttributeModifier.getOperation() == Operation.MULTIPLY_BASE || entityAttributeModifier.getOperation() == Operation.MULTIPLY_TOTAL) ? absValue*100 : absValue;
             double displayValue = (percentageProcessedValue == (int)percentageProcessedValue) ? (int)percentageProcessedValue : percentageProcessedValue;
-            String attributeNameString = new TranslatableText(entityAttribute.getTranslationKey()).getString();
+            String attributeNameString = Text.translatable(entityAttribute.getTranslationKey()).getString();
             String mainTransKey = "attribute.modifier." + (value < 0 ? "take" : "plus") + "." + entityAttributeModifier.getOperation().getId();
-            tooltip.add(new TranslatableText(mainTransKey, displayValue, attributeNameString).setStyle(value < 0 ? BroomBase.NEGATIVE_STAT_STYLE : BroomBase.STAT_STYLE));
+            tooltip.add(Text.translatable(mainTransKey, displayValue, attributeNameString).setStyle(value < 0 ? BroomBase.NEGATIVE_STAT_STYLE : BroomBase.STAT_STYLE));
         });
     }
 

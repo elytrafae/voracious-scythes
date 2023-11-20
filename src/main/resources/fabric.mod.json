@@ -3,7 +3,7 @@
   "id": "voracious_scythes",
   "version": "${version}",
 
-  "name": "Voracious Scythes ",
+  "name": "Voracious Scythes",
   "description": "A mod that adds cool scythes to the game.",
   "authors": [
     "CMD_God"
@@ -14,7 +14,7 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/voracious_scythes/icon.png",
 
   "environment": "*",
   "entrypoints": {
@@ -32,11 +32,11 @@
   "depends": {
     "fabricloader": ">=0.11.3",
     "fabric": "*",
-    "minecraft": "1.18.x",
+    "minecraft": "1.19.x",
     "java": ">=17",
-    "trinkets": "3.3.1"
+    "trinkets": ">=3.4.0"
   },
   "suggests": {
-    "another-mod": "*"
+    
   }
 }

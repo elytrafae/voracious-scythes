@@ -22,7 +22,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -54,13 +53,13 @@ public class BroomHead extends Item {
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         if (ability != null) {
-            tooltip.add(new TranslatableText("voracious_scythes.when_put_on_broom").setStyle(BroomBase.STAT_TITLE_STYLE));
+            tooltip.add(Text.translatable("voracious_scythes.when_put_on_broom").setStyle(BroomBase.STAT_TITLE_STYLE));
             ScytheBase.addAbilityDescriptionToTooltip(tooltip, ability);
         }
         String translationKey = getTranslationKey() + ".desc";
-        TranslatableText flairText = new TranslatableText(translationKey);
+        Text flairText = Text.translatable(translationKey);
         if (!flairText.getString().equals(translationKey)) {
-            tooltip.add(flairText.setStyle(BroomBase.FLAIR_STYLE));
+            tooltip.add(flairText.getWithStyle(BroomBase.FLAIR_STYLE).get(0));
         }
         super.appendTooltip(stack, world, tooltip, context);
     }

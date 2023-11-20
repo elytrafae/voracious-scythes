@@ -21,7 +21,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
@@ -66,7 +65,7 @@ public class BroomBigShotAbility extends ScytheAbilityBase {
         if (!VoraciousScythes.isInDarkCondition(player)) {
             PlayerExtension playeExt = (PlayerExtension)player;
             playeExt.getCdManager().reduceCooldownFor(this, this.cooldown);
-            player.sendMessage(new TranslatableText("item.voracious_scythes.big_shot_broom_head.light_fail").setStyle(Style.EMPTY.withColor(Formatting.RED)), true);
+            player.sendMessage(Text.translatable("item.voracious_scythes.big_shot_broom_head.light_fail").setStyle(Style.EMPTY.withColor(Formatting.RED)), true);
             player.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.PLAYERS, 1F, 0.5F);
             /*
             if (world.isClient && player.isMainPlayer()) {

@@ -3,7 +3,6 @@ package com.cmdgod.mc.voracious_scythes;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -372,6 +371,8 @@ public class VoraciousScythes implements ModInitializer {
         });
 		*/
 
+
+		/*
 		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
             dispatcher.register(CommandManager.literal("resetcooldowns").executes(context -> { 
 				ServerCommandSource source = context.getSource();
@@ -391,6 +392,7 @@ public class VoraciousScythes implements ModInitializer {
 				return 1;
 			}));
         });
+		*/
 
 		ServerPlayNetworking.registerGlobalReceiver(VoraciousScythes.UPDATE_TRACK_NUMBER_ID, (server, serverPlayer, handler, buf, responseSender) -> {
 			int slot = buf.readInt();

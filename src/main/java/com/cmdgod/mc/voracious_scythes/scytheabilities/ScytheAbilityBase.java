@@ -94,4 +94,17 @@ public class ScytheAbilityBase {
         return this.name;
     }
 
+    public static String returnAbilityCooldownString(int ticks) {
+        int seconds = ticks/20;
+        int minutes = seconds/60;
+        seconds = seconds - minutes * 60;
+        if (minutes <= 0) {
+            return seconds + " seconds";
+        }
+        if (seconds <= 0) {
+            return minutes + " minutes";
+        }
+        return minutes + " min. " + seconds + " sec.";
+    }
+
 }

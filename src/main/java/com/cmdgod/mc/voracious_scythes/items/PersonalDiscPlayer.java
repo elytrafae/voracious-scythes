@@ -48,7 +48,6 @@ import net.minecraft.server.command.GiveCommand;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -104,7 +103,7 @@ public class PersonalDiscPlayer extends TrinketItem  {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(new TranslatableText("item.voracious_scythes.personal_disc_player.desc").getWithStyle(BASIC_DESC_STYLE).get(0));
+        tooltip.add(Text.translatable("item.voracious_scythes.personal_disc_player.desc").getWithStyle(BASIC_DESC_STYLE).get(0));
 
         PersonalDiscPlayerPropertyDelegate propertyDelegate = new PersonalDiscPlayerPropertyDelegate(itemStack);
 
@@ -119,15 +118,15 @@ public class PersonalDiscPlayer extends TrinketItem  {
         }
         PersonalDiscPlayerInventory inventory = new PersonalDiscPlayerInventory(itemStack);
         if (inventory.isEmpty()) {
-            tooltip.add(new TranslatableText("item.voracious_scythes.personal_disc_player.noplaylist").getWithStyle(PLAYLIST_TITLE_STYLE).get(0));
+            tooltip.add(Text.translatable("item.voracious_scythes.personal_disc_player.noplaylist").getWithStyle(PLAYLIST_TITLE_STYLE).get(0));
             return;
         }
         int slotNr = propertyDelegate.getByName("currentTrack");
         ItemStack disc = inventory.getStack(inventory.getNextMusicDiscSlotAfter(slotNr - 1));
-        tooltip.add(new TranslatableText("item.voracious_scythes.personal_disc_player.nextdisc").getWithStyle(PLAYLIST_TITLE_STYLE).get(0));
+        tooltip.add(Text.translatable("item.voracious_scythes.personal_disc_player.nextdisc").getWithStyle(PLAYLIST_TITLE_STYLE).get(0));
         Identifier id = Registry.ITEM.getId(disc.getItem());
         String translationKey = "item." + id.getNamespace() + "." + id.getPath() + ".desc";
-        tooltip.add(new TranslatableText(translationKey).getWithStyle(CURRENT_SONG_NAME_STYLE).get(0));
+        tooltip.add(Text.translatable(translationKey).getWithStyle(CURRENT_SONG_NAME_STYLE).get(0));
     }
 
     @Override

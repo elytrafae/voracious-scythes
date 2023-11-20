@@ -59,6 +59,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 @Mixin(PlayerEntity.class)
@@ -261,7 +262,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerExtensio
         Identifier id = disc.getSound().getId();
         SoundManager soundManager = MinecraftClient.getInstance().getSoundManager();
         soundManager.stopSounds(null, SoundCategory.MUSIC);
-        personalSoundInstance = new PositionedSoundInstance(id, SoundCategory.PLAYERS, trueVolume, 1, false, 0, SoundInstance.AttenuationType.NONE, 0, 0, 0, true);
+        personalSoundInstance = new PositionedSoundInstance(id, SoundCategory.PLAYERS, trueVolume, 1.0f, Random.create(), false, 0, SoundInstance.AttenuationType.NONE, 0, 0, 0, true);
         MinecraftClient.getInstance().getSoundManager().play(personalSoundInstance);
     }
 

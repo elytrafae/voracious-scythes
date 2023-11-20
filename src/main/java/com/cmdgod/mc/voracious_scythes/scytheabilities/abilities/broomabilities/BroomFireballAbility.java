@@ -13,6 +13,7 @@ import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 public class BroomFireballAbility extends ScytheAbilityBase {
@@ -47,7 +48,7 @@ public class BroomFireballAbility extends ScytheAbilityBase {
         if (currentTick % FIREBALL_SHOOT_INTERVAL == 0) {
             if (world.isClient) {
                 Identifier id = new Identifier("minecraft:entity.blaze.shoot");
-                flyingSoundInstance = new PositionedSoundInstance(id, SoundCategory.PLAYERS, (float) 1, (float) 0.5, false, 0, AttenuationType.NONE, 0, 0, 0, true);
+                flyingSoundInstance = new PositionedSoundInstance(id, SoundCategory.PLAYERS, (float) 1, (float) 0.5, Random.create(), false, 0, AttenuationType.NONE, 0, 0, 0, true);
                 MinecraftClient.getInstance().getSoundManager().play(flyingSoundInstance);
             } else {
                 Vec3d rotation = player.getRotationVector().normalize().multiply(6);

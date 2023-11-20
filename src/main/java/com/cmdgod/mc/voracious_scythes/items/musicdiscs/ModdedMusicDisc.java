@@ -23,7 +23,7 @@ public class ModdedMusicDisc extends MusicDiscItem {
     }
 
     public ModdedMusicDisc(String sound_name, Rarity rarity, boolean isShiny) {
-        super(15, VoraciousScythes.registerSoundEvent(sound_name), new Item.Settings().group(VoraciousScythes.MUSIC_DISC_ITEM_GROUP).rarity(rarity).maxCount(1));
+        super(15, VoraciousScythes.registerSoundEvent(sound_name), new Item.Settings().group(VoraciousScythes.MUSIC_DISC_ITEM_GROUP).rarity(rarity).maxCount(1), 1);
         Registry.register(Registry.ITEM, new Identifier(VoraciousScythes.MOD_NAMESPACE, sound_name + "_music_disc"), this);
         this.isShiny = isShiny;
     }

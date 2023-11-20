@@ -16,7 +16,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import net.minecraft.text.Style;
@@ -46,8 +45,8 @@ public class BroomStick extends Item {
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
-        tooltip.add(new TranslatableText("voracious_scythes.when_put_on_broom").setStyle(BroomBase.STAT_TITLE_STYLE));
-        tooltip.add(new TranslatableText("attribute.modifier.plus.0", meleeDamage, new TranslatableText("attribute.name.generic.attack_damage").getString()).setStyle(BroomBase.STAT_STYLE));
+        tooltip.add(Text.translatable("voracious_scythes.when_put_on_broom").setStyle(BroomBase.STAT_TITLE_STYLE));
+        tooltip.add(Text.translatable("attribute.modifier.plus.0", meleeDamage, Text.translatable("attribute.name.generic.attack_damage").getString()).setStyle(BroomBase.STAT_STYLE));
     }
     
 }

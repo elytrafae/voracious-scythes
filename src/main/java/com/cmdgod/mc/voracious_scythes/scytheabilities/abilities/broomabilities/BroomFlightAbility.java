@@ -14,6 +14,7 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
@@ -43,11 +44,11 @@ public class BroomFlightAbility extends ScytheAbilityBase {
         if (world.isClient && player.isMainPlayer()) {
             SoundManager soundManager = MinecraftClient.getInstance().getSoundManager();
             Identifier id = new Identifier("minecraft:item.elytra.flying");
-            flyingSoundInstance = new PositionedSoundInstance(id, SoundCategory.PLAYERS, (float) 0.75, 1, true, 0, AttenuationType.NONE, 0, 0, 0, true);
+            flyingSoundInstance = new PositionedSoundInstance(id, SoundCategory.PLAYERS, (float) 0.75, 1, Random.create(), true, 0, AttenuationType.NONE, 0, 0, 0, true);
             soundManager.play(flyingSoundInstance);
 
             Identifier id2 = new Identifier("entity.firework_rocket.launch");
-            liftoffSoundInstance = new PositionedSoundInstance(id2, SoundCategory.PLAYERS, 1, 1, false, 0, AttenuationType.NONE, 0, 0, 0, true);
+            liftoffSoundInstance = new PositionedSoundInstance(id2, SoundCategory.PLAYERS, 1, 1, Random.create(), false, 0, AttenuationType.NONE, 0, 0, 0, true);
             soundManager.play(liftoffSoundInstance);
         }
     }

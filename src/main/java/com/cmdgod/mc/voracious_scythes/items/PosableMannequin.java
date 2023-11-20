@@ -19,7 +19,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -40,8 +39,8 @@ public class PosableMannequin extends Item {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(new TranslatableText("item.voracious_scythes.posable_mannequin.desc1").getWithStyle(BASIC_DESC_STYLE).get(0));
-        tooltip.add(new TranslatableText("item.voracious_scythes.posable_mannequin.desc2").getWithStyle(BASIC_DESC_STYLE).get(0));
+        tooltip.add(Text.translatable("item.voracious_scythes.posable_mannequin.desc1").getWithStyle(BASIC_DESC_STYLE).get(0));
+        tooltip.add(Text.translatable("item.voracious_scythes.posable_mannequin.desc2").getWithStyle(BASIC_DESC_STYLE).get(0));
     }
 
     /*

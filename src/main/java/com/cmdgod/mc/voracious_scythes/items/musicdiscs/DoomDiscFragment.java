@@ -9,7 +9,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -27,7 +26,7 @@ public class DoomDiscFragment extends Item {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(new TranslatableText("item.voracious_scythes.doom_disc_fragment.desc").getWithStyle(BASIC_DESC_STYLE).get(0));
+        tooltip.add(Text.translatable("item.voracious_scythes.doom_disc_fragment.desc").getWithStyle(BASIC_DESC_STYLE).get(0));
     }
     
 }

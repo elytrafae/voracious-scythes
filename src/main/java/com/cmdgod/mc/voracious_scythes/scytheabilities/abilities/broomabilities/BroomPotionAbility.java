@@ -19,7 +19,6 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -72,7 +71,7 @@ public class BroomPotionAbility extends ScytheAbilityBase {
         desc.add("forward at double speed!");
         desc.add("Possibilities: ");
         POSSIBLE_EFFECTS.forEach((effect) -> {
-            desc.add("- " + (new TranslatableText(effect.getTranslationKey()).getString()));
+            desc.add("- " + (Text.translatable(effect.getTranslationKey()).getString()));
         });
         this.changeDescription(desc);
     }

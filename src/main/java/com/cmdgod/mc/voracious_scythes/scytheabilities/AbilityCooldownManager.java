@@ -146,6 +146,8 @@ public class AbilityCooldownManager {
         return min;
     }
 
+    private static final int CLIENT_UPDATE_INTERVAL = 100; // 5 seconds
+
     public void tick(PlayerExtension playerExt) {
         this.tick++;
         if (!this.entries.isEmpty()) {
@@ -160,12 +162,15 @@ public class AbilityCooldownManager {
         if (tick % 5 == 0 && world.isClient && player.isMainPlayer()) {
             CooldownHUD.tick(this);
         }
-        if (tick % 20 == 0 && !world.isClient) {
+        if (tick % CLIENT_UPDATE_INTERVAL == 0 && !world.isClient) {
             updateClientOnCooldowns(player);
         }
     }
 
-    private void updateClientOnCooldowns(PlayerEntity player) {
+    // Call this when you want to update the client on the current cooldown states!
+    // WARNING! Don't call it too often because this can send a lot of data!
+    // This is naturally called every 5 seconds, and should be called whenever an ability is triggered!
+    public void updateClientOnCooldowns(PlayerEntity player) {
         AbilitySaveData saveData = getSaveData();
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeInt(saveData.tick); // The current tick
@@ -187,7 +192,7 @@ public class AbilityCooldownManager {
             return;
         }
         // Prevents cooldown from actually progressing while at least one charge is still in use.
-        // Whill not trigger in case of a manual cooldown reduction effect's update, which will give null for playerExt.
+        // Will not trigger in case of a manual cooldown reduction effect's update, which will give null for playerExt.
         if (!ability.chargeWhileInUse && (playerExt != null) && playerExt.getAbilityDurationManager().doesAbilityAlreadyHaveEntry(ability)) {
             int diff = tick - entry.startTick;
             entry.startTick += diff;
@@ -202,7 +207,12 @@ public class AbilityCooldownManager {
             if (entry.charges >= ability.charges) {
                 entry.turnOffCooldown();
             } else {
-                entry.setCooldown(ability.cooldown);
+                // Why is this code so messy? :(
+                if (playerExt == null) {
+                    entry.setCooldown(ability.cooldown);
+                } else {
+                    startCooldownFor(ability, entry, (PlayerEntity)((Object)playerExt));
+                }
             }
         }
     }

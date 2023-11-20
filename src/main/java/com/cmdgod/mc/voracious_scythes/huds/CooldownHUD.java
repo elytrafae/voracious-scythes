@@ -62,18 +62,20 @@ public class CooldownHUD {
                 timeString = ((int)cooldownLeftSeconds/60) + "m";
             }
             WLabel cooldownLabel = new WLabel(Text.of(timeString).getWithStyle(COOLDOWN_STYLE).get(0));
+            cooldownLabel.setSize(64, 64);
             cooldownLabel.setHorizontalAlignment(HorizontalAlignment.CENTER);
             cooldownLabel.setVerticalAlignment(VerticalAlignment.CENTER);
-            int cooldownX = background.getX() + background.getWidth()/2;// - cooldownLabel.getWidth()/2;
-            int cooldownY = background.getY() + background.getHeight()/2;// - cooldownLabel.getHeight()/2;
+            int cooldownX = background.getX();// + background.getWidth()/2;// - cooldownLabel.getWidth()/2;
+            int cooldownY = background.getY();// + background.getHeight()/2;// - cooldownLabel.getHeight()/2;
             mainPanel.add(cooldownLabel, cooldownX, cooldownY);
             
             if (entry.ability.charges > 1) {
                 WLabel chargeLabel = new WLabel(Text.of(entry.chargesLeft + " ").getWithStyle(COOLDOWN_STYLE).get(0));
                 chargeLabel.setHorizontalAlignment(HorizontalAlignment.CENTER);
                 chargeLabel.setVerticalAlignment(VerticalAlignment.CENTER);
-                int chargeX = background.getX() + background.getWidth();// - cooldownLabel.getWidth()/2;
-                int chargeY = background.getY() + background.getHeight();// - cooldownLabel.getHeight()/2;
+                chargeLabel.setSize(64, 64);
+                int chargeX = background.getX() + background.getWidth()/2;// - cooldownLabel.getWidth()/2;
+                int chargeY = background.getY() + background.getHeight()/2;// - cooldownLabel.getHeight()/2;
                 mainPanel.add(chargeLabel, chargeX, chargeY);
             }
         }

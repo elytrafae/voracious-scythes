@@ -6,6 +6,7 @@ import com.cmdgod.mc.voracious_scythes.mixinextensions.PlayerExtension;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.AbilityCooldownManager;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.AbilityDurationManager;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.ScytheAbilityBase;
+import com.cmdgod.mc.voracious_scythes.scytheabilities.AbilityCooldownManager.CooldownType;
 import com.cmdgod.mc.voracious_scythes.scytheabilities.abilities.HeavyHit;
 import com.cmdgod.mc.voracious_scythes.toolmaterials.ScytheMaterial;
 import com.google.common.base.Predicate;
@@ -116,7 +117,11 @@ public class ScytheBase extends SwordItem {
 
     public static void addAbilityDescriptionToTooltip(List<Text> tooltip, ScytheAbilityBase ability) {
         tooltip.add(ability.name);
-        tooltip.add(Text.of("Cooldown: " + (((float)ability.cooldown) / 20) + " seconds").getWithStyle(ABILITY_CD_STYLE).get(0));
+        tooltip.add(Text.of("Cooldown: " + ScytheAbilityBase.returnAbilityCooldownString(ability.cooldown)).getWithStyle(ABILITY_CD_STYLE).get(0));
+        if (ability.charges > 1) {
+            String cooldownTypeText = " " + (ability.cooldownType == CooldownType.ALL_AT_ONCE ? "(All At Once)" : "");
+            tooltip.add(Text.of("Charges: " + ability.charges + cooldownTypeText).getWithStyle(ABILITY_CD_STYLE).get(0));
+        }
         tooltip.addAll(ability.description);
     }
 

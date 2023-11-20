@@ -32,7 +32,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -156,9 +155,9 @@ public class BroomBase extends TrinketItem {
         BroomStick stick = getStick(stack);
         BroomGem gem = getGem(stack);
         BroomHead head = getHead(stack);
-        String stickText = (new TranslatableText(stick.getTranslationKey() + ".prefix")).getString();
-        String gemText = (new TranslatableText(gem.getTranslationKey() + ".prefix")).getString();
-        String headText = (new TranslatableText(head.getTranslationKey() + ".prefix")).getString();
+        String stickText = (Text.translatable(stick.getTranslationKey() + ".prefix")).getString();
+        String gemText = (Text.translatable(gem.getTranslationKey() + ".prefix")).getString();
+        String headText = (Text.translatable(head.getTranslationKey() + ".prefix")).getString();
 
         String text = "";
         if (headText.length() > 0) {
@@ -170,7 +169,7 @@ public class BroomBase extends TrinketItem {
         if (stickText.length() > 0) {
             text += stickText + " ";
         }
-        text += (new TranslatableText(this.getTranslationKey())).getString();
+        text += (Text.translatable(this.getTranslationKey())).getString();
 
         return Text.of(text);
     }
@@ -191,7 +190,7 @@ public class BroomBase extends TrinketItem {
             player.sendMessage(Text.of("Your broom has no active abilities!"), true);
             return;
         }
-        player.sendMessage(Text.of("Triggering ability for " + head.getName(stack).getString()), false);
+        //player.sendMessage(Text.of("Triggering ability for " + head.getName(stack).getString()), false);
         PlayerExtension playerExt = (PlayerExtension)player;
         AbilityCooldownManager cdManager = playerExt.getCdManager();
         AbilityDurationManager durationManager = playerExt.getAbilityDurationManager();
@@ -205,6 +204,10 @@ public class BroomBase extends TrinketItem {
         }
         cdManager.useChargeFor(head.ability, player);
         durationManager.startAbilityDuration(head.ability, player, stack);
+        World world = player.getWorld();
+        if (!world.isClient) {
+            cdManager.updateClientOnCooldowns(player);
+        }
     }
 
     @Override

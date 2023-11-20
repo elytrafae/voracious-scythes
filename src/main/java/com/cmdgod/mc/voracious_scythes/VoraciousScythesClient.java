@@ -23,7 +23,6 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.GenericContainerScreen;
@@ -92,7 +91,7 @@ public class VoraciousScythesClient implements ClientModInitializer {
 				Entity e = et.create(mcClient.world);
 				if (e == null)
 					throw new IllegalStateException("Failed to create instance of entity \"" + Registry.ENTITY_TYPE.getId(et) + "\"!");
-				e.updateTrackedPosition(pos);
+				e.updateTrackedPosition(pos.x, pos.y, pos.z);
 				e.setPos(pos.x, pos.y, pos.z);
 				e.setPitch(pitch);
 				e.setYaw(yaw);

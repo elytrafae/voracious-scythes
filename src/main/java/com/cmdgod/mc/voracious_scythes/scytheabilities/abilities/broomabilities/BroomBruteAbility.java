@@ -17,6 +17,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 
@@ -47,7 +48,7 @@ public class BroomBruteAbility extends ScytheAbilityBase {
             SoundManager soundManager = MinecraftClient.getInstance().getSoundManager();
 
             Identifier id2 = new Identifier("entity.ravager.roar");
-            strengthSoundInstance = new PositionedSoundInstance(id2, SoundCategory.PLAYERS, 1, 1, false, 0, AttenuationType.NONE, 0, 0, 0, true);
+            strengthSoundInstance = new PositionedSoundInstance(id2, SoundCategory.PLAYERS, 1, 1, Random.create(), false, 0, AttenuationType.NONE, 0, 0, 0, true);
             soundManager.play(strengthSoundInstance);
         }
     }

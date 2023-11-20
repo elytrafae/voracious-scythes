@@ -4,7 +4,6 @@ import io.github.cottonmc.cotton.gui.widget.TooltipBuilder;
 import io.github.cottonmc.cotton.gui.widget.WSlider;
 import io.github.cottonmc.cotton.gui.widget.data.Axis;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 
 public class WSimpleTooltipSlider extends WSlider {
 
@@ -17,7 +16,7 @@ public class WSimpleTooltipSlider extends WSlider {
 
     @Override
     public void addTooltip(TooltipBuilder tooltip) {
-        tooltip.add(new TranslatableText(translateKey, this.getValue()));
+        tooltip.add(Text.translatable(translateKey, this.getValue()));
     }
     
 }
